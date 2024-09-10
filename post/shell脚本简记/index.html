@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://acdcbyl.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/syntax.css' />
+    <title>Shell脚本简记 - Aiser`s Blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="脚本小知识简记" />
+<meta name="keywords"
+  content='blog' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://acdcbyl.github.io/post/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Shell脚本简记 - Aiser`s Blog" />
+<meta name="twitter:description"
+  content="脚本小知识简记" />
+<meta name="twitter:site" content="https://acdcbyl.github.io/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://acdcbyl.github.io/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Shell脚本简记 - Aiser`s Blog">
+<meta property="og:description"
+  content="脚本小知识简记" />
+<meta property="og:url" content="https://acdcbyl.github.io/post/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/" />
+<meta property="og:site_name" content="Shell脚本简记" />
+<meta property="og:image"
+  content="https://acdcbyl.github.io/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2024-09-10 21:14:12 &#43;0800 &#43;0800" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://acdcbyl.github.io/">
+        <img class="octicon" height="32" width="32" src="/images/github.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" id="search-form" action="" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://acdcbyl.github.io/">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/github.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://acdcbyl.github.io/">
+                  <img class=" avatar-user"
+                    src="/images/wall.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://acdcbyl.github.io/">Aiser</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="https://acdcbyl.github.io/post/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/">Shell脚本简记</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Tue, 10 Sep 2024 21:14:12 &#43;0800"
+                    class="no-wrap">
+                    Tue, 10 Sep 2024 21:14:12 &#43;0800</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Tue, 10 Sep 2024 13:22:41 &#43;0000"
+                    class="no-wrap">
+                    Tue, 10 Sep 2024 13:22:41 &#43;0000</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      2621 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h2 id="计算行数">计算行数</h2>
+<p>1、常见的wc -l</p>
+<h2 id="tail">tail</h2>
+<p>1、常用tail -Nf来追踪N行数据
+2、tail -n N来显示N行数据</p>
+<h2 id="删除换行符">删除换行符</h2>
+<p>1、tr命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tr <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#e6db74">&#39; &#39;</span>
+</span></span></code></pre></div><p>2、xargs echo -n
+3、sed,最难的一个</p>
+<h2 id="awk的相关知识">awk的相关知识</h2>
+<p>1、$0 它代表了输入进来的所有记录，一般可以表示当前的行
+2、 NR 行号
+获取文件内当前行为空的行号</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>awk <span style="color:#e6db74">&#39;{if($0 == &#34;&#34;) {print NR}}&#39;</span> ./nowcoder.txt
+</span></span></code></pre></div><p>3、 NF 表示当前行的字段数（即非空字段的数量）。因此，<code>awk NF</code> 的含义是只处理非空行，即只处理有字段的行。这个条件通常用于过滤掉空行或只包含空格的行，以便更精确地处理文本数据。
+去除掉空行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cat nowcoder.txt | awk NF
+</span></span></code></pre></div><p>4、awk可以嵌套if等语句处理复杂问题
+查找文件中长度小于等于八的单词</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cat nowcoder.txt | awk <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">for(i=1;i&lt;=NF;i++){
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">if(length($i) &lt; 8)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">print $i
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}&#39;</span>
+</span></span></code></pre></div><h2 id="grep命令">grep命令</h2>
+<p>1、grep可以使用-v来忽略匹配的行
+如忽略文件中包括this的行，输出其他行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cat nowcoder.txt | grep -v <span style="color:#e6db74">&#34;this&#34;</span>
+</span></span></code></pre></div><p>2、grep -n 显示匹配的行
+3、grep -e 可以提取同时满足的条件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>grep -e <span style="color:#e6db74">&#39;name&#39;</span> -e <span style="color:#e6db74">&#39;hello&#39;</span> 文件名 <span style="color:#75715e">#查找同时有name和hello的行</span>
+</span></span></code></pre></div><h2 id="一些注意点">一些注意点</h2>
+<p>$()代表命令转换，它里面的命令会被执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>now<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;</span>$sum<span style="color:#e6db74"> / </span>$len<span style="color:#e6db74">&#34;</span> | bc -l<span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>当涉及括号时，Bash 脚本中常见的用法包括：</p>
+<ol>
+<li>
+<p>小括号 <code>()</code>：</p>
+<ul>
+<li>在子 shell 中执行命令：<code>(command)</code> 会在一个子 shell 中执行 <code>command</code> 命令。</li>
+<li>在算术表达式中使用：<code>$((expression))</code> 可以计算整数表达式的值。</li>
+</ul>
+</li>
+<li>
+<p>中括号 <code>[]</code>：</p>
+<ul>
+<li>用于条件测试：在条件测试语句（如 if、while 等）中使用，比如 <code>[ &quot;$var&quot; = &quot;value&quot; ]</code> 来检查变量是否等于某个值。注意，中括号内部要留有空格。</li>
+</ul>
+</li>
+<li>
+<p>大括号 <code>{}</code>：</p>
+<ul>
+<li>用于构建代码块或者文件名扩展（通配符）：比如可以使用大括号来构建一系列类似的文件名，例如 <code>file{1..5}.txt</code> 可以展开为 <code>file1.txt file2.txt file3.txt file4.txt file5.txt</code>。</li>
+<li>在变量替换时使用: <code>$var_name{pattern}</code> 可以进行字符串模式匹配替换。</li>
+</ul>
+</li>
+</ol>
+<h2 id="free">free</h2>
+<p>free用来查询可用空间
+free -h方便读取
+其中的buff表示内存和硬盘之间的缓冲区
+swap：当内存不够用，可以使用硬盘划分的一段交换空间</p>
+<h2 id="查看文件">查看文件</h2>
+<p>1、cat：最常用的工具
+2、more：遇到大文件还可以，但无法回翻
+3、less：处理more做不到的
+4、tail：最常用查日志工具，-f可以动态查日志，-100查看100行同理tail -n查看n行</p>
+<h2 id="定时任务">定时任务</h2>
+<p>crontab
+crontab -l查看任务，crontab -e修改任务
+格式：分 时 日 月 周
+40 20 1 2 * 脚本路径
+每隔3小时执行一次</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>* */3 * * * 脚本路径
+</span></span></code></pre></div><h2 id="查找">查找</h2>
+<p>find常用参数是 -name,-size,-ctime(修改的时间)，-user,-perm
+find -name &rsquo;m*&lsquo;通配符记得引号
+find -size +100k查找大于100k的
+find -size -100k小于100k的
+find -ctime +10 十天之前的文件</p>
+<h2 id="权限">权限</h2>
+<p>r 4
+w 2
+x 1
+rwx 7 rw 6</p>
+<h2 id="sed-命令">Sed 命令</h2>
+<p>以下是一些常见的 <code>sed</code> 命令选项及其含义：</p>
+<ul>
+<li><code>-n</code>：禁止自动打印模式空间的内容，只有经过显式命令后才会输出。</li>
+<li><code>-e script</code>：允许在命令行上指定 <code>sed</code> 脚本，可以同时执行多个编辑命令。</li>
+<li><code>-f script-file</code>：从指定文件中读取 <code>sed</code> 脚本。</li>
+<li><code>-i[SUFFIX]</code>：直接修改文件内容，如果指定了 SUFFIX，则会备份原始文件，并将修改后的内容保存在原文件中。</li>
+<li><code>-r</code>：启用扩展正则表达式（ERE），使得 <code>sed</code> 中的正则表达式支持更多功能。</li>
+<li><code>-s</code>：处理每个文件时，将其视为独立的流，而不是一个整体。
+1、sed是按照行号来提取
+获取第一行和最后一行</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed -n <span style="color:#e6db74">&#39;1p;$p&#39;</span> filename 
+</span></span></code></pre></div><p>分号表示不连续的行，逗号则表示连续
+获取1到5行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed -n <span style="color:#e6db74">&#39;1,5p&#39;</span> filename
+</span></span></code></pre></div><p>2、sed替换的语法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;s/要被取代的字串/新的字串/g&#39;</span>
+</span></span></code></pre></div><ul>
+<li>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～</li>
+<li>c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！</li>
+<li>d ：删除，因为是删除啊，所以 d 后面通常不接任何东东；</li>
+<li>i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li>
+<li>p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～</li>
+<li>s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正则表达式！例如 1,20s/old/new/g 就是啦！</li>
+</ul>
+<h2 id="top">Top</h2>
+<ul>
+<li>PID：进程的标识符。</li>
+<li>USER：运行进程的用户名。</li>
+<li>PR（优先级）：进程的优先级。</li>
+<li>NI（Nice值）：进程的优先级调整值。</li>
+<li>VIRT（虚拟内存）：进程使用的虚拟内存大小。</li>
+<li>RES（常驻内存）：进程实际使用的物理内存大小。</li>
+<li>SHR（共享内存）：进程共享的内存大小。</li>
+<li>%CPU：进程占用 CPU 的使用率。</li>
+<li>%MEM：进程占用内存的使用率。</li>
+<li>TIME+：进程的累计 CPU 时间。</li>
+</ul>
+<h2 id="系统相关信息">系统相关信息</h2>
+<p>1、获取信息：uname -a可以获得系统的所有信息。
+2、获取启动时间：uptime,top
+3、获取存储情况（磁盘）：df -h方便阅读，-i可以获取inode数量
+4、查看文件夹情况：du -h方便阅读，-s显示大小
+5、查看文件内具体文件和文件夹：ls -h方便阅读，-l显示文件的具体信息，-t以时间排序，最新的在最上面，-r反转排序</p>
+<h2 id="用户管理">用户管理</h2>
+<p>1、添加用户：useradd
+-g可以指定用户组</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span> useradd –d  /home/sam -m sam <span style="color:#75715e">#分配了sam的同时一个地址作为home</span>
+</span></span></code></pre></div><p>2、删除用户： userdel
+最常用的是 -r,可以同时删除用户的目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>userdel -r sam
+</span></span></code></pre></div><p>3、修改用户： usermod</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>usermod -s /bin/ksh -d /home/z –g developer sam
+</span></span></code></pre></div><p>此命令将用户sam的登录Shell修改为ksh，主目录改为/home/z，用户组改为developer。
+4、密码管理： passwd
+可使用的选项：</p>
+<ul>
+<li>-l 锁定口令，即禁用账号。</li>
+<li>-u 口令解锁。</li>
+<li>-d 使账号无口令。</li>
+<li>-f 强迫用户下次登录时修改口令。
+5、创建用户组: groupadd
+常用 -g指定一个gid</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>groupadd -g <span style="color:#ae81ff">101</span> group2
+</span></span></code></pre></div><p>此命令向系统中增加了一个新组group1，新组的组标识号是在当前已有的最大组标识号的基础上加1。
+6、删除用户组: groupdel
+7、修改用户组: groupmod</p>
+<ul>
+<li>-g GID 为用户组指定新的组标识号。</li>
+<li>-o 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</li>
+<li>-n新用户组 将用户组的名字改为新名字</li>
+</ul>
+<h2 id="kill">Kill</h2>
+<p>1、最常用的信号是：</p>
+<ul>
+<li><code>SIGKILL</code>（信号9）：立即结束进程，不能被捕获或忽略。</li>
+<li><code>SIGTERM</code>（信号15）：正常结束进程，可以被捕获或忽略。</li>
+<li><code>SIGSTOP</code>（信号19）：暂停进程，不能被捕获、忽略或结束。</li>
+<li><code>SIGCONT</code>（信号18）：继续执行被暂停的进程。</li>
+<li><code>SIGINT</code>（信号2）：通常是Ctrl+C产生的信号，可以被进程捕获或忽略。</li>
+</ul>
+<h2 id="shell判断是否相等">shell判断是否相等</h2>
+<p>1、<code>-eq</code> 和 <code>=</code> 在 shell 脚本中是不同的。</p>
+<ul>
+<li><code>-eq</code> 用于数值比较，例如：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $a -eq $b <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;</span>$a<span style="color:#e6db74"> 等于 </span>$b<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div></li>
+<li><code>=</code> 用于字符串比较，例如：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$str1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span>$str2<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;两个字符串相等&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span></code></pre></div></li>
+</ul>
+<pre tabindex="0"><code>
+因此，在 shell 脚本中，`-eq` 和 `=` 分别用于数值和字符串的比较。要根据需要选择正确的运算符进行比较。
+2、大于是`gt`,小于是`lt`,大于等于是`ge`,小于等于是`le`
+</code></pre></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='https://acdcbyl.github.io/js/toc.js'></script>
+<link rel="stylesheet" href='https://acdcbyl.github.io/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://acdcbyl.github.io/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Aiser 2024</li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://acdcbyl.github.io/js/github-style.js"></script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script type="application/javascript" src='https://acdcbyl.github.io/js/search.js'></script>
+
+
+
+</html>
