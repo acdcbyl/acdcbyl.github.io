@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://acdcbyl.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://acdcbyl.github.io/css/syntax.css' />
+    <title>Postgresql简记 - Aiser`s Blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.ico'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="pg的小知识" />
+<meta name="keywords"
+  content='blog' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://acdcbyl.github.io/post/postgresql%E7%AE%80%E8%AE%B0/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Postgresql简记 - Aiser`s Blog" />
+<meta name="twitter:description"
+  content="pg的小知识" />
+<meta name="twitter:site" content="https://acdcbyl.github.io/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://acdcbyl.github.io/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Postgresql简记 - Aiser`s Blog">
+<meta property="og:description"
+  content="pg的小知识" />
+<meta property="og:url" content="https://acdcbyl.github.io/post/postgresql%E7%AE%80%E8%AE%B0/" />
+<meta property="og:site_name" content="Postgresql简记" />
+<meta property="og:image"
+  content="https://acdcbyl.github.io/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2024-09-10 19:56:09 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://acdcbyl.github.io/">
+        <img class="octicon" height="32" width="32" src="/images/github.png">
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          
+          <form target="_blank" id="search-form" action="" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+            </label>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://acdcbyl.github.io/">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="/images/github.png">
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+
+  <div id="search-result" class="container-lg px-3 new-discussion-timeline" style="display: none;">
+</div>
+
+  
+<div class="application-main">
+  <div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://acdcbyl.github.io/">
+                  <img class=" avatar-user"
+                    src="/images/wall.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://acdcbyl.github.io/">Aiser</a>
+                  </span>
+                  <span class="path-divider">/</span>
+                  <strong class="css-truncate css-truncate-target mr-1" style="max-width: 410px">
+                    <a href="https://acdcbyl.github.io/post/postgresql%E7%AE%80%E8%AE%B0/">Postgresql简记</a>
+                  </strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Tue, 10 Sep 2024 19:56:09 &#43;0800"
+                    class="no-wrap">
+                    Tue, 10 Sep 2024 19:56:09 &#43;0800</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Tue, 10 Sep 2024 20:01:02 &#43;0800"
+                    class="no-wrap">
+                    Tue, 10 Sep 2024 20:01:02 &#43;0800</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header" style="z-index: 2">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" onclick="clickToc()" class="btn btn-octicon m-0 mr-2 p-2">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                    <details-menu class="SelectMenu" id="toc-details" style="display: none;">
+                      <div class="SelectMenu-modal rounded-3 mt-1" style="max-height: 340px;">
+                        <div class="SelectMenu-list SelectMenu-list--borderless p-2" style="overscroll-behavior: contain;" id="toc-list">
+                        </div>
+                      </div>
+                    </details-menu>
+                      971 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5" style="z-index: 1">
+                <article class="markdown-body entry-content container-lg"><h2 id="1null无法与常用的数进行比较">1、null无法与常用的数进行比较</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">where</span> ifnull(score,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">!=</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">使用</span>ifnull将其转换为0
+</span></span></code></pre></div><h2 id="2去重">2、去重</h2>
+<p>distinct是通过查询的结果来去除重复记录（不考虑用户的查询条件），因此会出现全表扫描，那么在大数据量的场景下，会消耗更多的内存和IO资源，而group by是根据用户的查询条件过滤后的结果集再去操作，因此消耗更少的内存和IO资源。</p>
+<h2 id="3mysql的左连接">3、mysql的左连接</h2>
+<p>MySQL中的left join是一种连接方式，它以左表为基准，返回左表中所有的行，同时返回右表中与左表匹配的行。如果右表中没有匹配的行，则用NULL填充。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> unique_id, name <span style="color:#66d9ef">from</span> Employees <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> EmployeeUNI <span style="color:#66d9ef">on</span> Employees.id <span style="color:#f92672">=</span> EmployeeUNI.id;
+</span></span></code></pre></div><h2 id="4pg不支持datediff">4、PG不支持datediff</h2>
+<p>如下的语句mysql可以执行，但pg不支持</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> a.id <span style="color:#66d9ef">from</span> weather a,weather b <span style="color:#66d9ef">where</span> a.temperature <span style="color:#f92672">&gt;</span> b.temperature <span style="color:#66d9ef">and</span> datediff(a.recordDate,b.recordDate)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p>pg可以使用date_part实现相同的功能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> a.id <span style="color:#66d9ef">from</span> weather a,weather b <span style="color:#66d9ef">where</span> a.temperature <span style="color:#f92672">&gt;</span> b.temperature <span style="color:#66d9ef">and</span> DATE_PART(<span style="color:#e6db74">&#39;day&#39;</span>,a.recordDate) <span style="color:#f92672">-</span> DATE_PART(<span style="color:#e6db74">&#39;day&#39;</span>,b.recordDate)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><h2 id="5pg和mysql的if语句">5、PG和MYSQL的if语句</h2>
+<p>mysql</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">条件</span>,<span style="color:#960050;background-color:#1e0010">成立结果，不成立结果</span>);
+</span></span></code></pre></div><p>pg</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> activity_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;end&#39;</span> <span style="color:#66d9ef">then</span> <span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="6join后要衔接on">6、join后要衔接on</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name,bonus <span style="color:#66d9ef">from</span> Employee <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> Bonus <span style="color:#66d9ef">on</span> Employee.empId <span style="color:#f92672">=</span> Bonus.empId <span style="color:#66d9ef">where</span> ifnull(Bonus.bonus,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1000</span>;
+</span></span></code></pre></div><h2 id="7pg升级数据库后处理">7、PG升级数据库后处理</h2>
+<p>警告:  database &ldquo;MyTestDB&rdquo; has a collation version mismatch
+描述:  The database was created using collation version 2.39, but the operating system provides version 2.40.
+提示:  Rebuild all objects in this database that use the default collation and run ALTER DATABASE &ldquo;MyTestDB&rdquo; REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>sudo <span style="color:#f92672">-</span>u postgres psql <span style="color:#f92672">-</span>U postgres <span style="color:#f92672">-</span>d MyTestDB 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">REINDEX</span> <span style="color:#66d9ef">DATABASE</span> <span style="color:#e6db74">&#34;MyTestDB&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">DATABASE</span> <span style="color:#e6db74">&#34;MyTestDB&#34;</span> REFRESH <span style="color:#66d9ef">COLLATION</span> <span style="color:#66d9ef">VERSION</span>;
+</span></span></code></pre></div><h2 id="8pg实现字符大小转换使用拼接的方法">8、PG实现字符大小转换使用拼接的方法</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">user_id</th>
+          <th style="text-align: left">name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">aLice</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">bOb</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">查询获取如下的表格，可以使用concat</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">user_id</th>
+          <th style="text-align: left">name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">Alice</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">Bob</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> user_id ,concat(<span style="color:#66d9ef">upper</span>(<span style="color:#66d9ef">left</span>(name,<span style="color:#ae81ff">1</span>)),<span style="color:#66d9ef">lower</span>(<span style="color:#66d9ef">right</span>(name,<span style="color:#66d9ef">length</span>(name)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))) <span style="color:#66d9ef">as</span> name <span style="color:#66d9ef">from</span> Users;
+</span></span></code></pre></div><h2 id="9pg的正则表达式">9、PG的正则表达式</h2>
+<p>pg也是使用 <code>%</code>  代替所有值使用<code>_</code>作为一个字母的通配符</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> patient_id,patient_name,conditions <span style="color:#66d9ef">from</span> Patients <span style="color:#66d9ef">where</span> conditions <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;DIAB1%&#39;</span> <span style="color:#66d9ef">or</span> conditions <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;% DIAB1%&#39;</span>
+</span></span></code></pre></div><h2 id="10select特性">10、select特性</h2>
+<p>select可以实现搜索到空表返回null,因此可以使用双重select实现直接添加结果为null
+如</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> MyNumbers <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">having</span> <span style="color:#66d9ef">count</span>(num) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>将会返回一个空值但不会被表示为null</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span>(<span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> MyNumbers <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">having</span> <span style="color:#66d9ef">count</span>(num) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> num;
+</span></span></code></pre></div><p>控制将会返回一个null</p>
+<h2 id="11is用法">11、is用法</h2>
+<p>1、is可以判断值是否相等，特别用在字符串或null值上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> Customer <span style="color:#66d9ef">where</span> referee_id <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">or</span> referee_id <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>;
+</span></span></code></pre></div><p>2、is not可以实现相反的效果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> Customer <span style="color:#66d9ef">where</span> referee_id <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">or</span> referee_id <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>;
+</span></span></code></pre></div><h2 id="12limit">12、Limit</h2>
+<p>1、pg的limit严格遵守sql规范，基本语法如下：
+<code>LIMIT</code> 和 <code>OFFSET</code> 子句用于限制返回结果的行数和指定从哪一行开始。正确的语法应该是将 <code>LIMIT</code> 和 <code>OFFSET</code> 分开，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> test_a_description <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> age <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p><code>LIMIT 2</code> 表示返回结果的行数为 2，<code>OFFSET 1</code> 表示从结果集的第二行开始返回结果。
+MYSQL则是limit m,n表示：从第m+1条开始，取n条数据；</p>
+</article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script type="application/javascript" src='https://acdcbyl.github.io/js/toc.js'></script>
+<link rel="stylesheet" href='https://acdcbyl.github.io/css/toc.css' />
+
+  
+</div>
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://acdcbyl.github.io/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Aiser 2024</li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://acdcbyl.github.io/js/github-style.js"></script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
+<script type="application/javascript" src='https://acdcbyl.github.io/js/search.js'></script>
+
+
+
+</html>
