@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postgresql简记 | Aiser‘s Blog</title>
+
+    
+<link href="/images/github.ico" rel="icon" type="image/x-icon" />
+
+
+<link rel="canonical" href="https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/" />
+
+
+
+<meta name="author" content="Aiser" />
+<meta name="description" content="学习pg时遇到的一些问题以及技巧
+" />
+
+
+<meta name="keywords" content="Pg,Sql">
+
+
+
+<meta name="generator" content="Hugo 0.134.2">
+
+
+<meta property="og:url" content="https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/">
+  <meta property="og:site_name" content="Aiser‘s Blog">
+  <meta property="og:title" content="Postgresql简记">
+  <meta property="og:description" content="学习pg时遇到的一些问题以及技巧">
+  <meta property="og:locale" content="zh_Hans">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-11T10:04:09+08:00">
+    <meta property="article:modified_time" content="2024-09-11T10:04:09+08:00">
+    <meta property="article:tag" content="Pg">
+    <meta property="article:tag" content="Sql">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Postgresql简记">
+  <meta name="twitter:description" content="学习pg时遇到的一些问题以及技巧">
+
+
+
+
+  
+
+<link rel="stylesheet" href="/css/output.min.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="翻转一下！">
+        <div class="h-10 rounded-full">
+          <img src="/images/wall.png" alt="Aiser‘s Blog" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="https://acdcbyl.github.io/" class="text-lg font-semibold cursor-pointer">
+          Aiser‘s Blog
+        </a>
+        
+        
+        <div class="text-base-content/60 text-sm">多写多记，少写不记</div>
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="关于">
+    <ion-icon name="information-circle"></ion-icon>关于</div>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="group inline-flex items-center p-2 cursor-pointer" href="/search" title="搜索">
+    <ion-icon name="search"></ion-icon>
+    搜索
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    
+    <ion-icon name="logo-github"></ion-icon>
+    
+    GitHub
+  </a>
+</li>
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      <div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="关于">关于</div>
+      
+      
+
+      
+      
+      
+      
+
+      
+
+      
+      
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/search" title="搜索">
+  <ion-icon class="group-hover:text-primary-content" name="search"></ion-icon>
+</a>
+
+
+      
+      
+
+
+
+  
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    <ion-icon class="group-hover:text-primary-content" name="logo-github"></ion-icon>
+  </a>
+  
+
+
+
+      
+
+      <div class="dropdown dropdown-end dropdown-hover">
+        <div tabindex="0" role="button" class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" aria-label="Select an option">
+          <ion-icon class="group-hover:text-primary-content text-xl" name="menu"></ion-icon>
+        </div>
+        <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-xl">
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/index.xml" title="RSS">
+    <ion-icon name="logo-rss"></ion-icon>
+    RSS
+  </a>
+</li>
+
+
+          
+
+          
+          
+
+
+
+
+
+
+
+
+
+
+          
+        </ul>
+      </div>
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="Postgresql简记">
+  <meta itemprop="description" content="学习pg时遇到的一些问题以及技巧">
+  <meta itemprop="datePublished" content="2024-09-11T10:04:09+08:00">
+  <meta itemprop="dateModified" content="2024-09-11T10:04:09+08:00">
+  <meta itemprop="wordCount" content="289">
+  <meta itemprop="keywords" content="Pg,Sql">
+
+      <header>
+        <h1 itemprop="headline">Postgresql简记</h1>
+        <p class="text-sm">
+          
+            星期三, 9月 11, 2024
+          
+
+          | <span>2分钟阅读</span>
+
+          
+          | <span>更新于
+            
+              星期三, 9月 11, 2024
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <div class="avatar mr-1">
+    <div class="w-8 rounded-full">
+      <img class="my-0" src="/images/wall.png" alt="Aiser" />
+    </div>
+  </div>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <a itemprop="url" href="https://acdcbyl.github.io" target="_blank">
+        <span itemprop="name">Aiser</span>
+      </a>
+    
+  
+  </span>
+</div>
+
+
+          <span class="flex items-center gap-2">
+  <a class="group inline-flex items-center p-2 text-sm rounded-full cursor-pointer hover:bg-primary" href="https://twitter.com/intent/tweet?text=Postgresql%e7%ae%80%e8%ae%b0&url=https%3a%2f%2facdcbyl.github.io%2fposts%2fpostgresql%25E7%25AE%2580%25E8%25AE%25B0%2f" title="Share on X">
+    <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+  </a>
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2facdcbyl.github.io%2fposts%2fpostgresql%25E7%25AE%2580%25E8%25AE%25B0%2f" title="Share on Facebook">
+    <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+  </a>
+</span>
+
+        </div>
+      </header>
+
+      
+
+      <p>学习pg时遇到的一些问题以及技巧</p>
+<h2 id="1null无法与常用的数进行比较">1、null无法与常用的数进行比较</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> id <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span> <span style="color:#66d9ef">where</span> ifnull(score,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">!=</span><span style="color:#ae81ff">100</span> <span style="color:#f92672">#</span><span style="color:#960050;background-color:#1e0010">使用</span>ifnull将其转换为0
+</span></span></code></pre></div><h2 id="2去重">2、去重</h2>
+<p>distinct是通过查询的结果来去除重复记录（不考虑用户的查询条件），因此会出现全表扫描，那么在大数据量的场景下，会消耗更多的内存和IO资源，而group by是根据用户的查询条件过滤后的结果集再去操作，因此消耗更少的内存和IO资源。</p>
+<h2 id="3mysql的左连接">3、mysql的左连接</h2>
+<p>MySQL中的left join是一种连接方式，它以左表为基准，返回左表中所有的行，同时返回右表中与左表匹配的行。如果右表中没有匹配的行，则用NULL填充。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> unique_id, name <span style="color:#66d9ef">from</span> Employees <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> EmployeeUNI <span style="color:#66d9ef">on</span> Employees.id <span style="color:#f92672">=</span> EmployeeUNI.id;
+</span></span></code></pre></div><h2 id="4pg不支持datediff">4、PG不支持datediff</h2>
+<p>如下的语句mysql可以执行，但pg不支持</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> a.id <span style="color:#66d9ef">from</span> weather a,weather b <span style="color:#66d9ef">where</span> a.temperature <span style="color:#f92672">&gt;</span> b.temperature <span style="color:#66d9ef">and</span> datediff(a.recordDate,b.recordDate)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p>pg可以使用date_part实现相同的功能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> a.id <span style="color:#66d9ef">from</span> weather a,weather b <span style="color:#66d9ef">where</span> a.temperature <span style="color:#f92672">&gt;</span> b.temperature <span style="color:#66d9ef">and</span> DATE_PART(<span style="color:#e6db74">&#39;day&#39;</span>,a.recordDate) <span style="color:#f92672">-</span> DATE_PART(<span style="color:#e6db74">&#39;day&#39;</span>,b.recordDate)<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><h2 id="5pg和mysql的if语句">5、PG和MYSQL的if语句</h2>
+<p>mysql</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">条件</span>,<span style="color:#960050;background-color:#1e0010">成立结果，不成立结果</span>);
+</span></span></code></pre></div><p>pg</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#66d9ef">when</span> activity_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;end&#39;</span> <span style="color:#66d9ef">then</span> <span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h2 id="6join后要衔接on">6、join后要衔接on</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name,bonus <span style="color:#66d9ef">from</span> Employee <span style="color:#66d9ef">left</span> <span style="color:#66d9ef">join</span> Bonus <span style="color:#66d9ef">on</span> Employee.empId <span style="color:#f92672">=</span> Bonus.empId <span style="color:#66d9ef">where</span> ifnull(Bonus.bonus,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1000</span>;
+</span></span></code></pre></div><h2 id="7pg升级数据库后处理">7、PG升级数据库后处理</h2>
+<p>警告:  database &ldquo;MyTestDB&rdquo; has a collation version mismatch
+描述:  The database was created using collation version 2.39, but the operating system provides version 2.40.
+提示:  Rebuild all objects in this database that use the default collation and run ALTER DATABASE &ldquo;MyTestDB&rdquo; REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>sudo <span style="color:#f92672">-</span>u postgres psql <span style="color:#f92672">-</span>U postgres <span style="color:#f92672">-</span>d MyTestDB 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">REINDEX</span> <span style="color:#66d9ef">DATABASE</span> <span style="color:#e6db74">&#34;MyTestDB&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">DATABASE</span> <span style="color:#e6db74">&#34;MyTestDB&#34;</span> REFRESH <span style="color:#66d9ef">COLLATION</span> <span style="color:#66d9ef">VERSION</span>;
+</span></span></code></pre></div><h2 id="8pg实现字符大小转换使用拼接的方法">8、PG实现字符大小转换使用拼接的方法</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">user_id</th>
+          <th style="text-align: left">name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">aLice</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">bOb</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">查询获取如下的表格，可以使用concat</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">user_id</th>
+          <th style="text-align: left">name</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">Alice</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">Bob</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> user_id ,concat(<span style="color:#66d9ef">upper</span>(<span style="color:#66d9ef">left</span>(name,<span style="color:#ae81ff">1</span>)),<span style="color:#66d9ef">lower</span>(<span style="color:#66d9ef">right</span>(name,<span style="color:#66d9ef">length</span>(name)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))) <span style="color:#66d9ef">as</span> name <span style="color:#66d9ef">from</span> Users;
+</span></span></code></pre></div><h2 id="9pg的正则表达式">9、PG的正则表达式</h2>
+<p>pg也是使用 <code>%</code>  代替所有值使用<code>_</code>作为一个字母的通配符</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> patient_id,patient_name,conditions <span style="color:#66d9ef">from</span> Patients <span style="color:#66d9ef">where</span> conditions <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;DIAB1%&#39;</span> <span style="color:#66d9ef">or</span> conditions <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;% DIAB1%&#39;</span>
+</span></span></code></pre></div><h2 id="10select特性">10、select特性</h2>
+<p>select可以实现搜索到空表返回null,因此可以使用双重select实现直接添加结果为null
+如</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> MyNumbers <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">having</span> <span style="color:#66d9ef">count</span>(num) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>将会返回一个空值但不会被表示为null</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span>(<span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> MyNumbers <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">having</span> <span style="color:#66d9ef">count</span>(num) <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> num <span style="color:#66d9ef">desc</span> <span style="color:#66d9ef">limit</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">as</span> num;
+</span></span></code></pre></div><p>控制将会返回一个null</p>
+<h2 id="11is用法">11、is用法</h2>
+<p>1、is可以判断值是否相等，特别用在字符串或null值上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> Customer <span style="color:#66d9ef">where</span> referee_id <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">or</span> referee_id <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>;
+</span></span></code></pre></div><p>2、is not可以实现相反的效果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> name <span style="color:#66d9ef">from</span> Customer <span style="color:#66d9ef">where</span> referee_id <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">or</span> referee_id <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>;
+</span></span></code></pre></div><h2 id="12limit">12、Limit</h2>
+<p>1、pg的limit严格遵守sql规范，基本语法如下：
+<code>LIMIT</code> 和 <code>OFFSET</code> 子句用于限制返回结果的行数和指定从哪一行开始。正确的语法应该是将 <code>LIMIT</code> 和 <code>OFFSET</code> 分开，如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> test_a_description <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> age <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">OFFSET</span> <span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p><code>LIMIT 2</code> 表示返回结果的行数为 2，<code>OFFSET 1</code> 表示从结果集的第二行开始返回结果。
+MYSQL则是limit m,n表示：从第m+1条开始，取n条数据；</p>
+
+      
+    </article>
+  </div>
+
+  
+  <div class="divider max-w-[65ch] mx-auto"></div>
+
+  <section class="max-w-[65ch] mx-auto space-y-4">
+    
+<article>
+  <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+        this.page.identifier = '\/posts\/postgresql%E7%AE%80%E8%AE%B0\/';
+        this.page.title = 'Postgresql简记';
+        this.page.url = 'https:\/\/acdcbyl.github.io\/posts\/postgresql%E7%AE%80%E8%AE%B0\/';
+    };
+    function initDisqus() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "aisers-blog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    };
+    setTimeout(() => {
+        initDisqus();
+    }, 3000);
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+
+
+
+
+
+
+
+
+  </section>
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 px-4 py-12">
+            
+              <div>
+  
+  <p>
+    © 2024 Aiser‘s Blog
+  </p>
+  
+
+  
+  <p>欢迎来到我的博客！</p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>我的名字是Aiser,这是我的博客</p>
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">社交链接</div>
+
+        <ul class="menu menu-horizontal flex-wrap w-full px-0 [&_ion-icon]:text-lg">
+  
+  <li>
+    <a href="mailto:wtchel088@gmail.com" title="Email">
+      <ion-icon name="mail"></ion-icon>
+    </a>
+  </li>
+  
+
+  
+  <li>
+    <a href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+      <ion-icon name="logo-github"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://x.com/Aiser520" target="_blank" title="X">
+      <ion-icon name="logo-x"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://stackoverflow.com/users/22583303/aiser" target="_blank" title="stack overflow">
+      <ion-icon name="logo-stackoverflow"></ion-icon>
+    </a>
+  </li>
+  
+</ul>
+
+      </div>
+    </article>
+  </div>
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+    
+  
+  <script src="/js/grid.min.js"></script>
+
+
+
+
+  
+
+<script src="/js/main.min.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>
