@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql on Aiser‘s Blog</title>
+    <link>https://acdcbyl.github.io/tags/sql/</link>
+    <description>Recent content in Sql on Aiser‘s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Wed, 11 Sep 2024 10:04:09 +0800</lastBuildDate>
+    <atom:link href="https://acdcbyl.github.io/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Postgresql简记</title>
+      <link>https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/</link>
+      <pubDate>Wed, 11 Sep 2024 10:04:09 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/</guid>
+      <description>&lt;p&gt;学习pg时遇到的一些问题以及技巧&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
