@@ -3,10 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://acdcbyl.github.io/</loc>
-    <lastmod>2024-09-11T10:04:09+08:00</lastmod>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/categories/</loc>
-    <lastmod>2024-09-11T10:04:09+08:00</lastmod>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/linux/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/posts/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/shell/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/categories/%E7%AE%80%E8%AE%B0/</loc>
+    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/tags/pg/</loc>
     <lastmod>2024-09-11T10:04:09+08:00</lastmod>
@@ -14,16 +32,7 @@
     <loc>https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/</loc>
     <lastmod>2024-09-11T10:04:09+08:00</lastmod>
   </url><url>
-    <loc>https://acdcbyl.github.io/posts/</loc>
-    <lastmod>2024-09-11T10:04:09+08:00</lastmod>
-  </url><url>
     <loc>https://acdcbyl.github.io/tags/sql/</loc>
-    <lastmod>2024-09-11T10:04:09+08:00</lastmod>
-  </url><url>
-    <loc>https://acdcbyl.github.io/tags/</loc>
-    <lastmod>2024-09-11T10:04:09+08:00</lastmod>
-  </url><url>
-    <loc>https://acdcbyl.github.io/categories/%E7%AE%80%E8%AE%B0/</loc>
     <lastmod>2024-09-11T10:04:09+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/post/</loc>

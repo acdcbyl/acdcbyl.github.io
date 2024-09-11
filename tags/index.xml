@@ -6,8 +6,22 @@
     <description>Recent content in Tags on Aiser‘s Blog</description>
     <generator>Hugo</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Wed, 11 Sep 2024 10:04:09 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2024 11:31:10 +0800</lastBuildDate>
     <atom:link href="https://acdcbyl.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux</title>
+      <link>https://acdcbyl.github.io/tags/linux/</link>
+      <pubDate>Wed, 11 Sep 2024 11:31:10 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Shell</title>
+      <link>https://acdcbyl.github.io/tags/shell/</link>
+      <pubDate>Wed, 11 Sep 2024 11:31:10 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/tags/shell/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Pg</title>
       <link>https://acdcbyl.github.io/tags/pg/</link>

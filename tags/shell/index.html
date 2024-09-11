@@ -6,13 +6,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>搜索 | Aiser‘s Blog</title>
+    <title>Shell | Aiser‘s Blog</title>
 
     
 <link href="/images/github.ico" rel="icon" type="image/x-icon" />
 
 
-<link rel="canonical" href="https://acdcbyl.github.io/search/" />
+<link rel="canonical" href="https://acdcbyl.github.io/tags/shell/" />
 
 
 
@@ -24,9 +24,9 @@
 <meta name="generator" content="Hugo 0.134.2">
 
 
-<meta property="og:url" content="https://acdcbyl.github.io/search/">
+<meta property="og:url" content="https://acdcbyl.github.io/tags/shell/">
   <meta property="og:site_name" content="Aiser‘s Blog">
-  <meta property="og:title" content="Aiser‘s Blog">
+  <meta property="og:title" content="Shell">
   <meta property="og:locale" content="zh_Hans">
   <meta property="og:type" content="website">
 
@@ -34,7 +34,7 @@
 
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Aiser‘s Blog">
+  <meta name="twitter:title" content="Shell">
 
 
 
@@ -293,55 +293,105 @@
             
 
 
-<div class="mt-8 lg:mt-12 px-4"
+<div class="flex flex-col md:flex-row mt-4">
 
-x-data="{
-  search: '',
-  get posts() { return this.search !== '' ? window.fuse.search(this.search) : [] },
-}">
-  <label for="search" class="input input-bordered flex items-center gap-2">
-    <input id="search" name="search" type="text" class="grow" placeholder="搜索" x-model.debounce="search" />
-    <ion-icon name="search"></ion-icon>
-  </label>
+  <div class="md:basis-[200px] lg:basis-[300px] p-4 prose dark:prose-invert">
+    <h1 class="text-2xl">Shell</h1>
+    <p class="text-sm">1篇文章</p>
+    <div class="flex flex-wrap gap-4 mt-6">
+      
 
-  <div class="mt-8 space-y-4">
-  <template x-for="post in posts">
-    <a class="card card-compact bg-base-100 hover:bg-base-content/10 cursor-pointer border border-base-content/30" :href="post.item.url">
-      <div class="card-body">
-        <h2 class="card-title" x-text="post.item.title"></h2>
+      
+      
+      <a href="/tags/linux/" class="badge h-6 no-underline hover:badge-primary">
+        Linux
+      </a>
+      
+      
+      
+      <a href="/tags/pg/" class="badge h-6 no-underline hover:badge-primary">
+        Pg
+      </a>
+      
+      
+      
+      <span class="badge h-6 badge-primary">
+        Shell
+      </span>
+      
+      
+      
+      <a href="/tags/sql/" class="badge h-6 no-underline hover:badge-primary">
+        Sql
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="divider divider-vertical md:divider-horizontal px-4 md:px-0"></div>
+  
+  <div class="flex-1">
+    
 
-        <div x-html="post.item.description"></div>
+    
+    <div class="dream-grid">
+    
+      <div class="w-full md:w-1/2 lg:w-1/3 p-4 dream-column">
+        <a class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl cursor-pointer dark:border dark:border-base-content/30" href="/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/">
+  
+  <figure>
+    
+    <img src="/img/anime-anime-girls-2274090-wallhere.com.jpg" alt="Shell脚本简记" />
+    
+  </figure>
+  
 
-        <div class="card-actions justify-between items-center mt-4">
-          <div class="flex items-center">
-            <template x-if="post.item.avatar">
-            <div class="avatar mr-1">
-              <div class="w-8 rounded-full">
-                <img class="my-0" :src="post.item.avatar" :alt="post.item.author" />
-              </div>
-            </div>
-            </template>
-            <template x-if="!post.item.avatar">
-            <span>@</span>
-            </template>
+  <div class="card-body">
+    <h2 class="card-title">Shell脚本简记</h2>
 
-            <template x-if="post.item.author">
-            <span x-text="post.item.author"></span>
-            </template>
-            <template x-if="!post.item.author">
-            <span>Aiser</span>
-            </template>
-            </span>
-          </div>
+    <p class="date text-base-content/60">
+    
+      星期三, 9月 11, 2024
+    
+    </p>
 
-          <div class="inline-flex items-center">
-            <ion-icon name="time" class="mr-1"></ion-icon>
-            <span><span x-text="post.item.readingTime"></span>分钟阅读</span>
-          </div>
-        </div>
+    <p>Linux Shell脚本的常见方法</p>
+
+    <div class="card-actions justify-between items-center mt-4">
+      <div class="flex items-center">
+  
+  <div class="avatar mr-1">
+    <div class="w-8 rounded-full">
+      <img class="my-0" src="/images/wall.png" alt="Aiser" />
+    </div>
+  </div>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <span itemprop="name">Aiser</span>
+    
+  
+  </span>
+</div>
+
+
+      <div class="inline-flex items-center">
+        <ion-icon name="time" class="mr-1"></ion-icon>
+        <span>2分钟阅读</span>
       </div>
-    </a>
-  </template>
+    </div>
+  </div>
+</a>
+
+      </div>
+    
+    </div>
+    
+
+    
   </div>
 </div>
 
@@ -492,23 +542,6 @@ x-data="{
     
 
 
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js" integrity="sha256-42IbU8t3tOwwbexB7ZVRHm3YDRf65aBPPjRtIUufj5I=" crossorigin="anonymous"></script>
-<script>
-  var fuseData = [{"author":"Aiser","avatar":"/images/wall.png","categories":["简记"],"description":"\u003cp\u003eLinux Shell脚本的常见方法\u003c/p\u003e","readingTime":2,"tags":["Shell","linux"],"title":"Shell脚本简记","url":"/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/"},{"author":"Aiser","avatar":"/images/wall.png","categories":["简记"],"description":"\u003cp\u003e学习pg时遇到的一些问题以及技巧\u003c/p\u003e","readingTime":2,"tags":["pg","sql"],"title":"Postgresql简记","url":"/posts/postgresql%E7%AE%80%E8%AE%B0/"}];
-  var fuseOptions = {
-    keys: [
-      "title",
-    ]
-  };
-
-  var fuse = new Fuse(fuseData, fuseOptions);
-</script>
 
 
 
