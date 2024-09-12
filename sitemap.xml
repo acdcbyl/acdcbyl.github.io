@@ -3,27 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://acdcbyl.github.io/</loc>
-    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/categories/</loc>
-    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
   </url><url>
-    <loc>https://acdcbyl.github.io/tags/linux/</loc>
-    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
+    <loc>https://acdcbyl.github.io/tags/k8s/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/posts/k8s%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E5%85%AC%E5%BC%80%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/posts/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/categories/%E7%AE%80%E8%AE%B0/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/%E5%AE%B9%E5%99%A8/</loc>
+    <lastmod>2024-09-12T16:04:06+08:00</lastmod>
+  </url><url>
+    <loc>https://acdcbyl.github.io/tags/linux/</loc>
     <lastmod>2024-09-11T11:31:10+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/tags/shell/</loc>
     <lastmod>2024-09-11T11:31:10+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/</loc>
-    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
-  </url><url>
-    <loc>https://acdcbyl.github.io/tags/</loc>
-    <lastmod>2024-09-11T11:31:10+08:00</lastmod>
-  </url><url>
-    <loc>https://acdcbyl.github.io/categories/%E7%AE%80%E8%AE%B0/</loc>
     <lastmod>2024-09-11T11:31:10+08:00</lastmod>
   </url><url>
     <loc>https://acdcbyl.github.io/tags/pg/</loc>
