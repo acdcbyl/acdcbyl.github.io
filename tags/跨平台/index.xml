@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on Aiser&#39;s Blog</title>
-    <link>https://acdcbyl.github.io/tags/linux/</link>
-    <description>Recent content in Linux on Aiser&#39;s Blog</description>
+    <title>跨平台 on Aiser&#39;s Blog</title>
+    <link>https://acdcbyl.github.io/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</link>
+    <description>Recent content in 跨平台 on Aiser&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-Hans</language>
     <lastBuildDate>Sun, 22 Sep 2024 16:11:03 +0800</lastBuildDate>
-    <atom:link href="https://acdcbyl.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://acdcbyl.github.io/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux好用的工具</title>
       <link>https://acdcbyl.github.io/posts/linux%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Sun, 22 Sep 2024 16:11:03 +0800</pubDate>
       <guid>https://acdcbyl.github.io/posts/linux%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/</guid>
       <description>&lt;p&gt;我在arch linux上常用的软件，若有多平台将进行说明&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Shell脚本简记</title>
-      <link>https://acdcbyl.github.io/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/</link>
-      <pubDate>Wed, 11 Sep 2024 11:31:10 +0800</pubDate>
-      <guid>https://acdcbyl.github.io/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/</guid>
-      <description>&lt;p&gt;Linux Shell脚本的常见方法&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

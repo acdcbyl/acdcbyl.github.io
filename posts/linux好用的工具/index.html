@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux好用的工具 | Aiser&#39;s Blog</title>
+
+    
+<link href="/images/github.ico" rel="icon" type="image/x-icon" />
+
+
+<link rel="canonical" href="https://acdcbyl.github.io/posts/linux%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/" />
+
+
+
+<meta name="author" content="Aiser" />
+<meta name="description" content="我在arch linux上常用的软件，若有多平台将进行说明
+" />
+
+
+<meta name="keywords" content="Linux,跨平台">
+
+
+
+<meta name="generator" content="Hugo 0.134.3">
+
+
+<meta property="og:url" content="https://acdcbyl.github.io/posts/linux%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/">
+  <meta property="og:site_name" content="Aiser&#39;s Blog">
+  <meta property="og:title" content="Linux好用的工具">
+  <meta property="og:description" content="我在arch linux上常用的软件，若有多平台将进行说明">
+  <meta property="og:locale" content="zh_Hans">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-22T16:11:03+08:00">
+    <meta property="article:modified_time" content="2024-09-22T16:11:03+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="跨平台">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux好用的工具">
+  <meta name="twitter:description" content="我在arch linux上常用的软件，若有多平台将进行说明">
+
+
+
+
+  
+
+<link rel="stylesheet" href="/css/output.min.css" />
+
+
+
+
+    
+
+
+<style>
+  pre {
+    padding: 1em;
+    overflow: auto;
+  }
+</style>
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="翻转一下！">
+        <div class="h-10 rounded-full">
+          <img src="/images/wall.png" alt="Aiser&#39;s Blog" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="https://acdcbyl.github.io/" class="text-lg font-semibold cursor-pointer">
+          Aiser&#39;s Blog
+        </a>
+        
+        
+        <div class="text-base-content/60 text-sm">多写多记，少写不记</div>
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="关于">
+    <ion-icon name="information-circle"></ion-icon>关于</div>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="group inline-flex items-center p-2 cursor-pointer" href="/search" title="搜索">
+    <ion-icon name="search"></ion-icon>
+    搜索
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    
+    <ion-icon name="logo-github"></ion-icon>
+    
+    GitHub
+  </a>
+</li>
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      <div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="关于">关于</div>
+      
+      
+
+      
+      
+      
+      
+
+      
+
+      
+      
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/search" title="搜索">
+  <ion-icon class="group-hover:text-primary-content" name="search"></ion-icon>
+</a>
+
+
+      
+      
+
+
+
+  
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    <ion-icon class="group-hover:text-primary-content" name="logo-github"></ion-icon>
+  </a>
+  
+
+
+
+      
+
+      <div class="dropdown dropdown-end dropdown-hover">
+        <div tabindex="0" role="button" class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" aria-label="Select an option">
+          <ion-icon class="group-hover:text-primary-content text-xl" name="menu"></ion-icon>
+        </div>
+        <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-xl">
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/index.xml" title="RSS">
+    <ion-icon name="logo-rss"></ion-icon>
+    RSS
+  </a>
+</li>
+
+
+          
+
+          
+          
+
+
+
+
+
+
+
+
+
+
+          
+        </ul>
+      </div>
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="Linux好用的工具">
+  <meta itemprop="description" content="我在arch linux上常用的软件，若有多平台将进行说明">
+  <meta itemprop="datePublished" content="2024-09-22T16:11:03+08:00">
+  <meta itemprop="dateModified" content="2024-09-22T16:11:03+08:00">
+  <meta itemprop="wordCount" content="85">
+  <meta itemprop="keywords" content="Linux,跨平台">
+
+      <header>
+        <h1 itemprop="headline">Linux好用的工具</h1>
+        <p class="text-sm">
+          
+            星期日, 9月 22, 2024
+          
+
+          | <span>1分钟阅读</span>
+
+          
+          | <span>更新于
+            
+              星期日, 9月 22, 2024
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <div class="avatar mr-1">
+    <div class="w-8 rounded-full">
+      <img class="my-0" src="/images/wall.png" alt="Aiser" />
+    </div>
+  </div>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <a itemprop="url" href="https://acdcbyl.github.io" target="_blank">
+        <span itemprop="name">Aiser</span>
+      </a>
+    
+  
+  </span>
+</div>
+
+
+          <span class="flex items-center gap-2">
+  <a class="group inline-flex items-center p-2 text-sm rounded-full cursor-pointer hover:bg-primary" href="https://twitter.com/intent/tweet?text=Linux%e5%a5%bd%e7%94%a8%e7%9a%84%e5%b7%a5%e5%85%b7&url=https%3a%2f%2facdcbyl.github.io%2fposts%2flinux%25E5%25A5%25BD%25E7%2594%25A8%25E7%259A%2584%25E5%25B7%25A5%25E5%2585%25B7%2f" title="Share on X">
+    <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+  </a>
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2facdcbyl.github.io%2fposts%2flinux%25E5%25A5%25BD%25E7%2594%25A8%25E7%259A%2584%25E5%25B7%25A5%25E5%2585%25B7%2f" title="Share on Facebook">
+    <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+  </a>
+</span>
+
+        </div>
+      </header>
+
+      
+
+      <p>我在arch linux上常用的软件，若有多平台将进行说明</p>
+<h2 id="代码编辑类软件">代码/编辑类软件</h2>
+<h3 id="neovim">neovim</h3>
+<p><code>neovim</code>是vim的<code>fork</code>，在保留vim的操作逻辑的同时，提供了更强大的插件支持以及速度。nvim使用<code>lua</code>作为插件的配置以及开发语言。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p>neovim是跨平台的，插件亦是跨平台的，windows可以从<a href="https://neovim.io/">官网</a>进行下载，linux/mac推荐使用包管理器</p>
+
+  </blockquote>
+
+<p>neovim想要良好体验需要进行配置，推荐使用<code>astronvim</code>项目作为基础，可以访问其<a href="https://astronvim.com/">官网</a>了解
+<img src="/markimg/screen_shot_2024-09-22-16-33-31.png" alt="neovim"></p>
+<h3 id="zed">Zed</h3>
+<p><code>zed</code>是原<code>github</code>项目<code>Astom</code>编辑器团队的新作品，<code>Astom</code>比<code>Vscode</code>更臃肿，导致效率偏低，现已不再更新。<code>zed</code>使用<code>rust</code>作为开发语言，同时默认支持gpu加速，因此
+速度比<code>sublime</code>还要快。<code>zed</code>原生支持插件以及AI的集成。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>zed</code>支持多平台，linux/mac可以直接使用包管理器安装，windows还未正式发布，可以到<a href="https://zed.dev/">官网</a>获取源代码手动编译</p>
+
+  </blockquote>
+
+<p><img src="/markimg/screen_shot_2024-09-22-16-45-58.png" alt="zed"></p>
+<h2 id="常用工具类">常用工具类</h2>
+<h3 id="yazi">yazi</h3>
+<p><code>yazi</code>是使用<code>rust</code>编写的<code>TUI</code>文件管理器，基于<code>异步I/O</code>从而实现了极快的速度。同时<code>yazi</code>适配了几乎所有终端图片协议，同时可以在终端快速预览文件内容</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>yazi</code>是跨平台的，它在linux/mac上可以使用包管理器安装，windows平台仍处于ea阶段，现已提供安装包，可以访问<a href="https://yazi-rs.github.io/docs/installation">官网</a>查看</p>
+
+  </blockquote>
+
+<p><img src="/markimg/screen_shot_2024-09-22-16-58-52.png" alt="yazi"></p>
+<h3 id="lazygit">lazygit</h3>
+<p><code>lazygit</code>是使用<code>go</code>开发的<code>TUI</code>git管理器，它较为方便的封装了git的常用功能，同时保证了速度</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p>lazygit是跨平台的，linux/mac推荐使用包管理器安装，windows可以访问其<a href="https://github.com/jesseduffield/lazygit">github</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/lazygit.png" alt="lazygit"></p>
+<h3 id="lazydocker">lazydocker</h3>
+<p><code>lazydocker</code>是由<code>lazygit</code>开发者开发的另一个项目，同样适用<code>go</code>语言开发，用来管理<code>docker</code>。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>lazydocker</code>同样跨平台，详情可以及查看<a href="https://github.com/jesseduffield/lazydocker">github</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/lazydocker.png" alt="lazydocker"></p>
+<h3 id="bottom">bottom</h3>
+<p><code>bottom</code>用于终端的可自定义跨平台图形进程/系统监视器,使用<code>rust</code>开发，极为轻量且易于操作</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>bottom</code>是跨平台的，可以访问<a href="https://clementtsang.github.io/bottom/stable/">官网</a>了解</p>
+
+  </blockquote>
+
+<p><img src="/markimg/bottom.png" alt="bottom"></p>
+<h2 id="功能测试工具">功能测试工具</h2>
+<h3 id="posting">posting</h3>
+<p><code>posting</code>是使用<code>python</code>开发免费的<code>TUI</code>功能测试软件,它拥有完整的测试工具链，可以快速的进行功能测试</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>posting</code>同样支持跨平台，它的安装推荐查看<a href="https://posting.sh/guide/">官方文档</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/posting.png" alt="posting"></p>
+<h3 id="hoppscotch">Hoppscotch</h3>
+<p><code>Hoppscotch</code>前身为<code>postwoman</code>，是极为强大测试软件，它可以在几乎所有环境运行，桌面版使用<code>tarui</code>框架，它的运行速度极快</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>Hoppscotch</code>支持几乎所有平台，可以查看<a href="https://hoppscotch.com/">官网</a>获取帮助</p>
+
+  </blockquote>
+
+<p><img src="/markimg/Hoppscotch.png" alt="Hoppscotch"></p>
+<h2 id="终端工具">终端工具</h2>
+<h3 id="kitty">kitty</h3>
+<p><code>kitty</code>是一个个人项目，使用<code>c</code>+<code>go</code>进行开发，它支持gpu加速，使其速度达到了极为夸张的程度。它拥有自己的终端图片显示协议，同时拥有<code>Tmux</code>的主要功能（终端复用）</p>
+
+
+
+  <blockquote class="dream-alert warning">
+    <p class="heading">
+      <ion-icon name="warning-outline"></ion-icon>警告</p>
+    <p><code>kitty</code>不是完全跨平台的，它原生并不支持windows,可以使用wsl2体验。使用方法可以查看<a href="https://sw.kovidgoyal.net/kitty/">官网</a></p>
+
+  </blockquote>
+
+<h3 id="alacritty">alacritty</h3>
+<p>对于不满意windows终端模拟器的人，<code>alacritty</code>是一个非常好的选择,它使用<code>rust</code>开发，同样支持gpu加速。但其没有自己的终端图片协议。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>alacritty</code>是跨平台的，它的速度甚至比<code>kitty</code>还要快一些，可以访问其<a href="https://alacritty.org/">官网</a>了解</p>
+
+  </blockquote>
+
+<h3 id="fish">fish</h3>
+<p><code>fish</code>是一个命令行交互<code>Shell</code>,故意不完全符合 POSIX，它旨在通过简化或不同的语法来解决 POSIX 不一致（如创建者所感知的那样）。这意味着即使是简单的 POSIX 兼容脚本也可能需要一些重大的调整甚至完全重写才能与 fish 一起运行。
+<code>fish</code>使用<code>rust</code>进行过重构，它最早使用<code>c</code>语言开发，用用极为令人震惊的速度。<code>fish</code>还支持开箱即用自动补全、历史记录、搜索、web配置等功能。</p>
+
+
+
+  <blockquote class="dream-alert warning">
+    <p class="heading">
+      <ion-icon name="warning-outline"></ion-icon>警告</p>
+    <p><code>fish</code>并不支持windows,主要应用在linux/mac上面，可以在各个发行版中使用包管理器安装
+<code>fish</code>可以使用<code>fisher</code>作为插件管理工具，访问<a href="https://github.com/jorgebucaran/fisher">github</a>了解</p>
+
+  </blockquote>
+
+<h3 id="starship">starship</h3>
+<p><code>starship</code>使用<code>rust</code>开发的终端提示符，它极为轻量,易于配置。它有极强的兼容性，支持几乎所有<code>Shell</code>包括<code>zsh</code>,<code>powershell</code>等等</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>starship</code>是跨平台的，详情可见<a href="https://starship.rs/zh-CN/">官方文档</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/starship.png" alt="starship"></p>
+<h2 id="影音娱乐">影音娱乐</h2>
+<h3 id="go-musicfox">go-musicfox</h3>
+<p><code>go-musicfox</code>是国人开发的业余项目，一款<code>TUI</code>第三方网易云音乐。由于并不是全职开发此软件，因此更新效率并不高，但目前功能已完全满足需要。
+<code>go-musicfox</code>是使用go进行开发的，接入了UnblockNeteaseMusic，在linux上支持<code>mpd</code>作为后端，效果很棒</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>go-musicfox</code>是跨平台的，甚至支持安卓，详情可见<a href="https://github.com/go-musicfox/go-musicfox">github</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/musicfox.png" alt="musicfox"></p>
+<h3 id="ncmpcpp">ncmpcpp</h3>
+<p><code>ncmpcpp</code>是一个 mpd 客户端（与 mopidy 兼容），其 UI 与<code>ncmpc</code>非常相似，但它提供了新的有用功能，例如支持用于库搜索的正则表达式、扩展的歌曲格式、项目过滤、对播放列表进行排序的能力以及本地文件系统浏览器。</p>
+
+
+
+  <blockquote class="dream-alert warning">
+    <p class="heading">
+      <ion-icon name="warning-outline"></ion-icon>警告</p>
+    <p><code>ncmpcpp</code>不支持windows,linux/mac用户可以通过包管理器安装</p>
+
+  </blockquote>
+
+<p><img src="/markimg/ncmpcpp.png" alt="ncmpcpp"></p>
+<h3 id="mpv">mpv</h3>
+<p><code>mpv</code>是一个开源且易于配置的视频播放器，支持几乎所有视频格式并且支持gpu加速，同时提供了大量插件。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>mpv</code>是跨平台的，可以查看<a href="https://mpv.io/installation/">官网</a>获取相关支持</p>
+
+  </blockquote>
+
+<p><img src="/markimg/mpv.png" alt="mpv"></p>
+
+      
+    </article>
+  </div>
+
+  
+  <div class="divider max-w-[65ch] mx-auto"></div>
+
+  <section class="max-w-[65ch] mx-auto space-y-4">
+    
+
+
+
+
+
+
+<article>
+
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    init({
+      el: '#waline',
+      dark: 'html.dark',
+      serverURL: "https://hugo-comment-five.vercel.app/",
+    });
+  </script>
+
+</article>
+
+
+  </section>
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 px-4 py-12">
+            
+              <div>
+  
+  <p>
+    © 2024 Aiser&#39;s Blog
+  </p>
+  
+
+  
+  <p>欢迎来到我的博客！</p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>我的名字是Aiser,这是我的博客</p>
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">社交链接</div>
+
+        <ul class="menu menu-horizontal flex-wrap w-full px-0 [&_ion-icon]:text-lg">
+  
+  <li>
+    <a href="mailto:wtchel088@gmail.com" title="Email">
+      <ion-icon name="mail"></ion-icon>
+    </a>
+  </li>
+  
+
+  
+  <li>
+    <a href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+      <ion-icon name="logo-github"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://x.com/Aiser520" target="_blank" title="X">
+      <ion-icon name="logo-x"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://stackoverflow.com/users/22583303/aiser" target="_blank" title="stack overflow">
+      <ion-icon name="logo-stackoverflow"></ion-icon>
+    </a>
+  </li>
+  
+</ul>
+
+      </div>
+    </article>
+  </div>
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+    
+  
+  <script src="/js/grid.min.js"></script>
+
+
+
+
+  
+
+<script src="/js/main.min.js"></script>
+
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>
