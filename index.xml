@@ -6,8 +6,15 @@
     <description>Recent content on Aiser&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 22 Sep 2024 16:11:03 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Sep 2024 14:48:15 +0800</lastBuildDate>
     <atom:link href="https://acdcbyl.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovim常用操作</title>
+      <link>https://acdcbyl.github.io/posts/neovim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Sat, 28 Sep 2024 14:48:15 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/posts/neovim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
+      <description>&lt;p&gt;nvim/vim常用的快捷键&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Linux好用的工具</title>
       <link>https://acdcbyl.github.io/posts/linux%E5%A5%BD%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/</link>

@@ -6,8 +6,22 @@
     <description>Recent content in Tags on Aiser&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 22 Sep 2024 16:11:03 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Sep 2024 14:48:15 +0800</lastBuildDate>
     <atom:link href="https://acdcbyl.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovim</title>
+      <link>https://acdcbyl.github.io/tags/neovim/</link>
+      <pubDate>Sat, 28 Sep 2024 14:48:15 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/tags/neovim/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vim</title>
+      <link>https://acdcbyl.github.io/tags/vim/</link>
+      <pubDate>Sat, 28 Sep 2024 14:48:15 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/tags/vim/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Linux</title>
       <link>https://acdcbyl.github.io/tags/linux/</link>
