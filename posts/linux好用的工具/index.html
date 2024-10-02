@@ -338,7 +338,7 @@
   <meta itemprop="description" content="我在arch linux上常用的软件，若有多平台将进行说明">
   <meta itemprop="datePublished" content="2024-09-22T16:11:03+08:00">
   <meta itemprop="dateModified" content="2024-09-22T16:11:03+08:00">
-  <meta itemprop="wordCount" content="85">
+  <meta itemprop="wordCount" content="112">
   <meta itemprop="keywords" content="Linux,跨平台">
 
       <header>
@@ -555,6 +555,32 @@
   </blockquote>
 
 <p><img src="/markimg/starship.png" alt="starship"></p>
+<h3 id="bat-20241002更新">bat (2024.10.02更新)</h3>
+<p><code>bat</code>是使用<code>rust</code>对<code>cat</code>的克隆，它比cat更加易于使用，具备高亮显示、git集成、以及自动分页等功能</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>bat</code>是跨平台的，可以访问<a href="https://github.com/sharkdp/bat">github</a>了解，<code>bat</code>可以和<code>man</code>联动，以实现文档的高亮显示，只需要配置<code>MANPAGER=&quot;sh -c 'col -bx | bat -l man -p'&quot;</code>和<code>MANROFFOPT=&quot;-c&quot;</code>两个环境变量</p>
+
+  </blockquote>
+
+<p><img src="/markimg/bat.png" alt="bat"></p>
+<h3 id="glow-20241002更新">glow (2024.10.02更新)</h3>
+<p><code>Glow</code> 是一款基于终端的<code>Markdown</code>阅读器，旨在充分发挥 CLI 的美感和强大功能。它是使用<code>go</code>语言开发的,<code>Glow</code>将在子目录或本地 Git 存储库中找到本地 Markdown 文件。</p>
+
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>Glow</code>是跨平台的，它可以在几乎所有的平台安装，可以访问<a href="https://github.com/charmbracelet/glow">github</a>进行了解。直接使用<code>glow</code>命令将打开它的TUI,使用<code>glow + *.md</code>将直接输出</p>
+
+  </blockquote>
+
+<p><img src="/markimg/glow.png" alt="glow"></p>
 <h2 id="影音娱乐">影音娱乐</h2>
 <h3 id="go-musicfox">go-musicfox</h3>
 <p><code>go-musicfox</code>是国人开发的业余项目，一款<code>TUI</code>第三方网易云音乐。由于并不是全职开发此软件，因此更新效率并不高，但目前功能已完全满足需要。
