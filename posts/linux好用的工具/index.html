@@ -338,7 +338,7 @@
   <meta itemprop="description" content="我在arch linux上常用的软件，若有多平台将进行说明">
   <meta itemprop="datePublished" content="2024-09-22T16:11:03+08:00">
   <meta itemprop="dateModified" content="2024-09-22T16:11:03+08:00">
-  <meta itemprop="wordCount" content="112">
+  <meta itemprop="wordCount" content="144">
   <meta itemprop="keywords" content="Linux,跨平台">
 
       <header>
@@ -581,6 +581,45 @@
   </blockquote>
 
 <p><img src="/markimg/glow.png" alt="glow"></p>
+<h3 id="fd-20241007更新">fd (2024.10.07更新)</h3>
+<p><code>fd</code>一种简单、快速且用户友好的<code>find</code>替代方案,它是使用<code>rust</code>开发的，支持正则表达式。它并未完全支持<code>find</code>的所有功能，但是对于日用是完全可以保证的。它拥有开箱即用的高亮显示。速度要比<code>find</code>快得多。</p>
+<h4 id="简单使用方法">简单使用方法</h4>
+<ol>
+<li>查找包含某个字符(如：new)的文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd new
+</span></span></code></pre></div><ol start="2">
+<li>指定某个文件夹(如：/etc内的)的文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd new /etc
+</span></span></code></pre></div><ol start="3">
+<li>通过正则表达式查找以n开头，w结尾的文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd <span class="s1">&#39;^n.*w$&#39;</span>
+</span></span></code></pre></div><ol start="4">
+<li>fd直接在某个目录可以递归显示所有文件，与ls -R的效果差不多</li>
+<li>通过文件拓展名查找文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd -e .md
+</span></span></code></pre></div><ol start="6">
+<li>查找具体的某个文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd -g new.fish
+</span></span></code></pre></div><ol start="7">
+<li>fd默认不查找隐藏文件夹内的文件，可以通过 <code>-H</code> 获取隐藏文件夹内的文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">fd -H new
+</span></span></code></pre></div>
+
+
+  <blockquote class="dream-alert important">
+    <p class="heading">
+      <ion-icon name="sparkles-outline"></ion-icon>重要</p>
+    <p><code>fd</code>是完全跨平台的，在几乎所有发行版(包括windows)内都可使用包管理器安装，详细信息可以访问<a href="https://github.com/sharkdp/fd">github</a></p>
+
+  </blockquote>
+
+<p><img src="/markimg/fd.png" alt="fd"></p>
 <h2 id="影音娱乐">影音娱乐</h2>
 <h3 id="go-musicfox">go-musicfox</h3>
 <p><code>go-musicfox</code>是国人开发的业余项目，一款<code>TUI</code>第三方网易云音乐。由于并不是全职开发此软件，因此更新效率并不高，但目前功能已完全满足需要。
