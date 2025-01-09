@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.139.4">
+<meta name="generator" content="Hugo 0.140.2">
 
 
 <meta property="og:url" content="https://acdcbyl.github.io/posts/k8s%E5%BF%AB%E9%80%9F%E9%85%8D%E7%BD%AE%E5%85%AC%E5%BC%80%E6%9C%8D%E5%8A%A1/">
@@ -452,7 +452,6 @@ ctrl+d退出pod,再访问则返回空响应：
       <ion-icon name="sparkles-outline"></ion-icon>重要</p>
     <p><code>selector</code>为选择器，它将判断具体为哪些应用创建service,可以通过<code>labels</code>
 获取应用名</p>
-
   </blockquote>
 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">kubectl describe pod &lt;pod-name&gt;
@@ -470,7 +469,6 @@ ctrl+d退出pod,再访问则返回空响应：
     <p class="heading">
       <ion-icon name="warning-outline"></ion-icon>警告</p>
     <p><code>service</code>组件没有指定类型，则默认为<code>clusterip</code>类型的服务</p>
-
   </blockquote>
 
 <h3 id="2修改配置文件">2.修改配置文件</h3>
@@ -495,7 +493,6 @@ ctrl+d退出pod,再访问则返回空响应：
     <p class="heading">
       <ion-icon name="sparkles-outline"></ion-icon>重要</p>
     <p>对外端口的范围为<code>30000-32767</code>之间</p>
-
   </blockquote>
 
 <p>apply一下配置文件，检查服务状态：
@@ -547,7 +544,7 @@ ctrl+d退出pod,再访问则返回空响应：
               <div>
   
   <p>
-    © 2024 Aiser&#39;s Blog
+    © 2024 - 2025 Aiser&#39;s Blog
   </p>
   
 
