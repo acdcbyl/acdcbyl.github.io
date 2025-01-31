@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>音频 on Aiser&#39;s Blog</title>
+    <link>https://acdcbyl.github.io/tags/%E9%9F%B3%E9%A2%91/</link>
+    <description>Recent content in 音频 on Aiser&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Fri, 31 Jan 2025 14:24:53 +0800</lastBuildDate>
+    <atom:link href="https://acdcbyl.github.io/tags/%E9%9F%B3%E9%A2%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为arch Linux开启高采样率</title>
+      <link>https://acdcbyl.github.io/posts/%E4%B8%BAarch-linux%E5%BC%80%E5%90%AF%E9%AB%98%E9%87%87%E6%A0%B7%E7%8E%87/</link>
+      <pubDate>Fri, 31 Jan 2025 14:24:53 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/posts/%E4%B8%BAarch-linux%E5%BC%80%E5%90%AF%E9%AB%98%E9%87%87%E6%A0%B7%E7%8E%87/</guid>
+      <description>&lt;p&gt;通过调整pipewire开启高采样率&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
