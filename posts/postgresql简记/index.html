@@ -36,7 +36,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-09-11T10:04:09+08:00">
-    <meta property="article:modified_time" content="2024-09-11T10:04:09+08:00">
+    <meta property="article:modified_time" content="2025-02-14T10:04:09+08:00">
     <meta property="article:tag" content="Pg">
     <meta property="article:tag" content="Sql">
 
@@ -337,8 +337,8 @@
   <meta itemprop="name" content="Postgresql简记">
   <meta itemprop="description" content="学习pg时遇到的一些问题以及技巧">
   <meta itemprop="datePublished" content="2024-09-11T10:04:09+08:00">
-  <meta itemprop="dateModified" content="2024-09-11T10:04:09+08:00">
-  <meta itemprop="wordCount" content="289">
+  <meta itemprop="dateModified" content="2025-02-14T10:04:09+08:00">
+  <meta itemprop="wordCount" content="314">
   <meta itemprop="keywords" content="Pg,Sql">
 
       <header>
@@ -353,7 +353,7 @@
           
           | <span>更新于
             
-              星期三, 9月 11, 2024
+              星期五, 2月 14, 2025
             </span>
           
         </p>
@@ -406,6 +406,12 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">datediff</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>pg可以使用date_part实现相同的功能</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>要解决跨月问题，你可以使用 DATE_SUB 或 INTERVAL 来直接比较日期，而不是仅仅比较天数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">JOIN</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;1 day&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="5pg和mysql的if语句">5、PG和MYSQL的if语句</h2>
 <p>mysql</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="err">条件</span><span class="p">,</span><span class="err">成立结果，不成立结果</span><span class="p">);</span><span class="w">
@@ -414,10 +420,10 @@
 </span></span></span></code></pre></div><h2 id="6join后要衔接on">6、join后要衔接on</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="n">bonus</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Employee</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">Bonus</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">Employee</span><span class="p">.</span><span class="n">empId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Bonus</span><span class="p">.</span><span class="n">empId</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">ifnull</span><span class="p">(</span><span class="n">Bonus</span><span class="p">.</span><span class="n">bonus</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="7pg升级数据库后处理">7、PG升级数据库后处理</h2>
-<p>警告:  database &ldquo;MyTestDB&rdquo; has a collation version mismatch
-描述:  The database was created using collation version 2.39, but the operating system provides version 2.40.
-提示:  Rebuild all objects in this database that use the default collation and run ALTER DATABASE &ldquo;MyTestDB&rdquo; REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="n">psql</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">MyTestDB</span><span class="w"> 
+<p>警告: database &ldquo;MyTestDB&rdquo; has a collation version mismatch
+描述: The database was created using collation version 2.39, but the operating system provides version 2.40.
+提示: Rebuild all objects in this database that use the default collation and run ALTER DATABASE &ldquo;MyTestDB&rdquo; REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="n">psql</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">MyTestDB</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">REINDEX</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="w"> </span><span class="n">REFRESH</span><span class="w"> </span><span class="k">COLLATION</span><span class="w"> </span><span class="k">VERSION</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="8pg实现字符大小转换使用拼接的方法">8、PG实现字符大小转换使用拼接的方法</h2>
@@ -460,7 +466,7 @@
 </table>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">user_id</span><span class="w"> </span><span class="p">,</span><span class="n">concat</span><span class="p">(</span><span class="k">upper</span><span class="p">(</span><span class="k">left</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="k">lower</span><span class="p">(</span><span class="k">right</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="k">length</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Users</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="9pg的正则表达式">9、PG的正则表达式</h2>
-<p>pg也是使用 <code>%</code>  代替所有值使用<code>_</code>作为一个字母的通配符</p>
+<p>pg也是使用 <code>%</code> 代替所有值使用<code>_</code>作为一个字母的通配符</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">patient_id</span><span class="p">,</span><span class="n">patient_name</span><span class="p">,</span><span class="n">conditions</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Patients</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">conditions</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;DIAB1%&#39;</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">conditions</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;% DIAB1%&#39;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="10select特性">10、select特性</h2>
 <p>select可以实现搜索到空表返回null,因此可以使用双重select实现直接添加结果为null
