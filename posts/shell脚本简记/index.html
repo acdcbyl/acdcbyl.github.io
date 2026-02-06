@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.145.0">
+<meta name="generator" content="Hugo 0.155.2">
 
 
 <meta property="og:url" content="https://acdcbyl.github.io/posts/shell%E8%84%9A%E6%9C%AC%E7%AE%80%E8%AE%B0/">
@@ -409,15 +409,15 @@
 2、 NR 行号
 获取文件内当前行为空的行号</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>awk <span class="s1">&#39;{if($0 == &#34;&#34;) {print NR}}&#39;</span> ./nowcoder.txt
+</span></span></span><span class="line"><span class="cl">awk <span class="s1">&#39;{if($0 == &#34;&#34;) {print NR}}&#39;</span> ./nowcoder.txt
 </span></span></code></pre></div><p>3、 NF 表示当前行的字段数（即非空字段的数量）。因此，<code>awk NF</code> 的含义是只处理非空行，即只处理有字段的行。这个条件通常用于过滤掉空行或只包含空格的行，以便更精确地处理文本数据。
 去除掉空行</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>cat nowcoder.txt <span class="p">|</span> awk NF
+</span></span></span><span class="line"><span class="cl">cat nowcoder.txt <span class="p">|</span> awk NF
 </span></span></code></pre></div><p>4、awk可以嵌套if等语句处理复杂问题
 查找文件中长度小于等于八的单词</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>cat nowcoder.txt <span class="p">|</span> awk <span class="s1">&#39;{
+</span></span></span><span class="line"><span class="cl">cat nowcoder.txt <span class="p">|</span> awk <span class="s1">&#39;{
 </span></span></span><span class="line"><span class="cl"><span class="s1">
 </span></span></span><span class="line"><span class="cl"><span class="s1">for(i=1;i&lt;=NF;i++){
 </span></span></span><span class="line"><span class="cl"><span class="s1">
@@ -432,7 +432,7 @@
 <p>1、grep可以使用-v来忽略匹配的行
 如忽略文件中包括this的行，输出其他行</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>cat nowcoder.txt <span class="p">|</span> grep -v <span class="s2">&#34;this&#34;</span>
+</span></span></span><span class="line"><span class="cl">cat nowcoder.txt <span class="p">|</span> grep -v <span class="s2">&#34;this&#34;</span>
 </span></span></code></pre></div><p>2、grep -n 显示匹配的行
 3、grep -e 可以提取同时满足的条件</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">grep -e <span class="s1">&#39;name&#39;</span> -e <span class="s1">&#39;hello&#39;</span> 文件名 <span class="c1">#查找同时有name和hello的行</span>
@@ -636,7 +636,7 @@ rwx 7 rw 6</p>
               <div>
   
   <p>
-    © 2024 - 2025 Aiser&#39;s Blog
+    © 2024 - 2026 Aiser&#39;s Blog
   </p>
   
 
@@ -804,7 +804,7 @@ rwx 7 rw 6</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-069VH5YHSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

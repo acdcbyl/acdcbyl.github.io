@@ -6,8 +6,15 @@
     <description>Recent content in 简记 on Aiser&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Fri, 14 Feb 2025 10:04:09 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 06 Feb 2026 21:38:26 +0800</lastBuildDate>
     <atom:link href="https://acdcbyl.github.io/categories/%E7%AE%80%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Emacs简单入门</title>
+      <link>https://acdcbyl.github.io/posts/emacs%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Fri, 06 Feb 2026 21:38:26 +0800</pubDate>
+      <guid>https://acdcbyl.github.io/posts/emacs%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/</guid>
+      <description>&lt;p&gt;一个简单的用来入门emacs的笔记&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Dart语法简记</title>
       <link>https://acdcbyl.github.io/posts/dart%E8%AF%AD%E6%B3%95%E7%AE%80%E8%AE%B0/</link>

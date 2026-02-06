@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.145.0">
+<meta name="generator" content="Hugo 0.155.2">
 
 
 <meta property="og:url" content="https://acdcbyl.github.io/posts/postgresql%E7%AE%80%E8%AE%B0/">
@@ -408,10 +408,10 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>要解决跨月问题，你可以使用 DATE_SUB 或 INTERVAL 来直接比较日期，而不是仅仅比较天数</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">JOIN</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;1 day&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">JOIN</span><span class="w"> </span><span class="n">weather</span><span class="w"> </span><span class="n">b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">recordDate</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;1 day&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">temperature</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">temperature</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="5pg和mysql的if语句">5、PG和MYSQL的if语句</h2>
 <p>mysql</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="err">条件</span><span class="p">,</span><span class="err">成立结果，不成立结果</span><span class="p">);</span><span class="w">
@@ -424,8 +424,8 @@
 描述: The database was created using collation version 2.39, but the operating system provides version 2.40.
 提示: Rebuild all objects in this database that use the default collation and run ALTER DATABASE &ldquo;MyTestDB&rdquo; REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">sudo</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="n">psql</span><span class="w"> </span><span class="o">-</span><span class="n">U</span><span class="w"> </span><span class="n">postgres</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="n">MyTestDB</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">REINDEX</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="w"> </span><span class="n">REFRESH</span><span class="w"> </span><span class="k">COLLATION</span><span class="w"> </span><span class="k">VERSION</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">REINDEX</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="s2">&#34;MyTestDB&#34;</span><span class="w"> </span><span class="n">REFRESH</span><span class="w"> </span><span class="k">COLLATION</span><span class="w"> </span><span class="k">VERSION</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><h2 id="8pg实现字符大小转换使用拼接的方法">8、PG实现字符大小转换使用拼接的方法</h2>
 <table>
   <thead>
@@ -529,7 +529,7 @@ MYSQL则是limit m,n表示：从第m+1条开始，取n条数据；</p>
               <div>
   
   <p>
-    © 2024 - 2025 Aiser&#39;s Blog
+    © 2024 - 2026 Aiser&#39;s Blog
   </p>
   
 
@@ -697,7 +697,7 @@ MYSQL则是limit m,n表示：从第m+1条开始，取n条数据；</p>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-069VH5YHSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

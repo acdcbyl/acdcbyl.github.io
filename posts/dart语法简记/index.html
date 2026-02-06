@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.145.0">
+<meta name="generator" content="Hugo 0.155.2">
 
 
 <meta property="og:url" content="https://acdcbyl.github.io/posts/dart%E8%AF%AD%E6%B3%95%E7%AE%80%E8%AE%B0/">
@@ -428,28 +428,28 @@
 <p>Mixin 是一种在多个类层次结构中重用代码的方法。
 允许你将多个类中的方法组合到一个类中，而无需使用继承。Mixin 可以看作是一个包含方法和属性的类，但不能被实例化。通过使用 with 关键字，你可以将一个或多个 mixins 添加到类中。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 定义一个基类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">breathe</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Breathing&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 定义一个Mixin
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mixin</span> <span class="n">Walkable</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">mixin</span> <span class="n">Walkable</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">walk</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Walking&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 定义另一个Mixin
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">mixin</span> <span class="n">Runnable</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">mixin</span> <span class="n">Runnable</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Running&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 定义一个类，继承基类并使用Mixins
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="kd">with</span> <span class="n">Walkable</span><span class="p">,</span> <span class="n">Runnable</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="kd">with</span> <span class="n">Walkable</span><span class="p">,</span> <span class="n">Runnable</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">bark</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Barking&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
@@ -457,17 +457,17 @@
 </span></span></code></pre></div><h3 id="接口和抽象类">接口和抽象类</h3>
 <p>dart中所有类都被隐式定义成了接口，因此所有的类都可以作为接口被实现</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 定义一个接口（实际上是一个普通的类）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Flyer</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Flyer</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">fly</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 定义另一个接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Swimmer</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Swimmer</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">swim</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 实现Flyer和Swimmer接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Duck</span> <span class="kd">implements</span> <span class="n">Flyer</span><span class="p">,</span> <span class="n">Swimmer</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Duck</span> <span class="kd">implements</span> <span class="n">Flyer</span><span class="p">,</span> <span class="n">Swimmer</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">fly</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Duck is flying.&#39;</span><span class="p">);</span>
@@ -480,17 +480,17 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>抽象类使用 abstract 关键字定义。抽象类可以包含抽象方法（没有方法体的方法）以及具体实现的方法。抽象类不能被实例化，必须通过继承来使用。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="c1">// 定义一个抽象类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">breathe</span><span class="p">();</span> <span class="c1">// 抽象方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">sleep</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 具体方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Sleeping&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Sleeping&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 定义一个具体类继承抽象类
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">Animal</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="err">@</span><span class="n">override</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="n">breathe</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Dog is breathing.&#39;</span><span class="p">);</span>
@@ -504,7 +504,7 @@
 <p>使用 async 和 await 关键字可以让你避免回调地狱</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dart" data-lang="dart"><span class="line"><span class="cl"><span class="kd">const</span> <span class="n">oneSecond</span> <span class="o">=</span> <span class="n">Duration</span><span class="p">(</span><span class="nl">seconds:</span> <span class="m">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// ···
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">printWithDelay</span><span class="p">(</span><span class="kt">String</span> <span class="n">message</span><span class="p">)</span> <span class="kd">async</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">printWithDelay</span><span class="p">(</span><span class="kt">String</span> <span class="n">message</span><span class="p">)</span> <span class="kd">async</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kd">await</span> <span class="n">Future</span><span class="p">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">oneSecond</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">print</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -518,18 +518,18 @@
 </span></span><span class="line"><span class="cl"><span class="n">Future</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span> <span class="n">describeFlybyObjects</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="n">flybyObjects</span><span class="p">)</span> <span class="kd">async</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 遍历flybyObjects列表中的每个对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">object</span> <span class="k">in</span> <span class="n">flybyObjects</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">object</span> <span class="k">in</span> <span class="n">flybyObjects</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 异步读取与对象名称对应的文本文件内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">var</span> <span class="n">description</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">File</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">$</span><span class="n">object</span><span class="s1">.txt&#39;</span><span class="p">).</span><span class="n">readAsString</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">      <span class="kd">var</span> <span class="n">description</span> <span class="o">=</span> <span class="kd">await</span> <span class="n">File</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">$</span><span class="n">object</span><span class="s1">.txt&#39;</span><span class="p">).</span><span class="n">readAsString</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 打印文件内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">print</span><span class="p">(</span><span class="n">description</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">      <span class="n">print</span><span class="p">(</span><span class="n">description</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="n">on</span> <span class="n">IOException</span> <span class="k">catch</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 捕获并处理IO异常
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Could not describe object: </span><span class="si">$</span><span class="n">e</span><span class="s1">&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s1">&#39;Could not describe object: </span><span class="si">$</span><span class="n">e</span><span class="s1">&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 无论是否发生异常，清空flybyObjects列表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">flybyObjects</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">flybyObjects</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
@@ -576,7 +576,7 @@
               <div>
   
   <p>
-    © 2024 - 2025 Aiser&#39;s Blog
+    © 2024 - 2026 Aiser&#39;s Blog
   </p>
   
 
@@ -744,7 +744,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-069VH5YHSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

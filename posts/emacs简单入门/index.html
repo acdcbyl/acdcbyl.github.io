@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-Hans"
+  x-data
+  :class="$store.darkMode.class()"
+  :data-theme="$store.darkMode.theme()">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emacs简单入门 | Aiser&#39;s Blog</title>
+
+    
+<link href="/images/github.ico" rel="icon" type="image/x-icon" />
+
+
+<link rel="canonical" href="https://acdcbyl.github.io/posts/emacs%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" />
+
+
+
+<meta name="author" content="Aiser" />
+<meta name="description" content="一个简单的用来入门emacs的笔记
+" />
+
+
+<meta name="keywords" content="Emacs,Elisp">
+
+
+
+<meta name="generator" content="Hugo 0.155.2">
+
+
+<meta property="og:url" content="https://acdcbyl.github.io/posts/emacs%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/">
+  <meta property="og:site_name" content="Aiser&#39;s Blog">
+  <meta property="og:title" content="Emacs简单入门">
+  <meta property="og:description" content="一个简单的用来入门emacs的笔记">
+  <meta property="og:locale" content="zh_Hans">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-02-06T21:38:26+08:00">
+    <meta property="article:modified_time" content="2026-02-06T21:38:26+08:00">
+    <meta property="article:tag" content="Emacs">
+    <meta property="article:tag" content="Elisp">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Emacs简单入门">
+  <meta name="twitter:description" content="一个简单的用来入门emacs的笔记">
+
+
+
+
+  
+
+<link rel="stylesheet" href="/css/output.min.css" />
+
+
+
+
+    
+
+
+<link rel="stylesheet" data-custom-syntax-highlighting />
+<style>
+  .chroma {
+    padding: 1em;
+    background-color: var(--dream-pre-bg, #f5f5f5);
+    border-radius: .5em;
+    overflow: auto;
+  }
+
+  html.dark .chroma {
+    background-color: var(--dream-pre-bg-dark, #262626);
+  }
+</style>
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+
+
+
+
+    
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+
+  <body x-data="{
+    flip: false,
+  }">
+    
+    <div id="dream-global-bg"></div>
+
+    
+<nav class="mt-4 lg:mt-8 py-4">
+
+  
+  <div class="container flex justify-between px-4">
+  
+    <section class="flex items-center gap-4">
+      <div class="avatar cursor-pointer hover:online" @click="flip = !flip" title="翻转一下！">
+        <div class="h-10 rounded-full">
+          <img src="/images/wall.png" alt="Aiser&#39;s Blog" />
+        </div>
+      </div>
+
+      
+      <div>
+        
+        <a href="https://acdcbyl.github.io/" class="text-lg font-semibold cursor-pointer">
+          Aiser&#39;s Blog
+        </a>
+        
+        
+        <div class="text-base-content/60 text-sm">多写多记，少写不记</div>
+        
+      </div>
+      
+    </section>
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-md">
+        
+
+
+<li>
+  <div role="link" tabindex="0" class="inline-flex items-center p-2 cursor-pointer" @click="flip = !flip" title="关于">
+    <ion-icon name="information-circle"></ion-icon>关于</div>
+</li>
+
+
+
+
+
+
+
+
+
+<li>
+  <a class="group inline-flex items-center p-2 cursor-pointer" href="/search" title="搜索">
+    <ion-icon name="search"></ion-icon>
+    搜索
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    
+    <ion-icon name="logo-github"></ion-icon>
+    
+    GitHub
+  </a>
+</li>
+
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+
+
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </ul>
+    </div>
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      
+      
+      
+      <div role="link" tabindex="0" class="text-sm font-semibold cursor-pointer hover:underline" @click="flip = !flip" title="关于">关于</div>
+      
+      
+
+      
+      
+      
+      
+
+      
+
+      
+      
+      
+      
+<a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="/search" title="搜索">
+  <ion-icon class="group-hover:text-primary-content" name="search"></ion-icon>
+</a>
+
+
+      
+      
+
+
+
+  
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+    <ion-icon class="group-hover:text-primary-content" name="logo-github"></ion-icon>
+  </a>
+  
+
+
+
+      
+
+      <div class="dropdown dropdown-end dropdown-hover">
+        <div tabindex="0" role="button" class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" aria-label="Select an option">
+          <ion-icon class="group-hover:text-primary-content text-xl" name="menu"></ion-icon>
+        </div>
+        <ul class="dropdown-content menu w-36 bg-base-100 rounded-box z-[1] shadow-xl">
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/posts" title="归档">
+    <ion-icon name="archive"></ion-icon>
+    归档
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/categories" title="所有分类">
+    <ion-icon name="grid"></ion-icon>
+    所有分类
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/tags" title="所有标签">
+    <ion-icon name="pricetags"></ion-icon>
+    所有标签
+  </a>
+</li>
+
+
+          
+          
+<li>
+  <a class="inline-flex items-center p-2 cursor-pointer" href="/index.xml" title="RSS">
+    <ion-icon name="logo-rss"></ion-icon>
+    RSS
+  </a>
+</li>
+
+
+          
+
+          
+          
+
+
+
+
+
+
+
+
+
+
+          
+        </ul>
+      </div>
+      
+    </section>
+  </div>
+</nav>
+
+
+    <div class="flip-container" :class="{ 'flip-it': flip }">
+      <div class="flipper">
+        <div class="front">
+          <div class="container">
+            
+<div class="mt-4 px-4">
+  
+  <div>
+  
+    
+    <article class="mx-auto prose prose-quoteless dark:prose-invert" id="dream-single-post-main" itemscope itemtype="http://schema.org/Article">
+      
+  <meta itemprop="name" content="Emacs简单入门">
+  <meta itemprop="description" content="一个简单的用来入门emacs的笔记">
+  <meta itemprop="datePublished" content="2026-02-06T21:38:26+08:00">
+  <meta itemprop="dateModified" content="2026-02-06T21:38:26+08:00">
+  <meta itemprop="wordCount" content="218">
+  <meta itemprop="keywords" content="Emacs,Elisp">
+
+      <header>
+        <h1 itemprop="headline">Emacs简单入门</h1>
+        <p class="text-sm">
+          
+            星期五, 2月 6, 2026
+          
+
+          | <span>2分钟阅读</span>
+
+          
+          | <span>更新于
+            
+              星期五, 2月 6, 2026
+            </span>
+          
+        </p>
+        <div class="flex justify-between">
+          <div class="flex items-center">
+  
+  <div class="avatar mr-1">
+    <div class="w-8 rounded-full">
+      <img class="my-0" src="/images/wall.png" alt="Aiser" />
+    </div>
+  </div>
+  
+
+  <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+  
+    
+      <a itemprop="url" href="https://acdcbyl.github.io" target="_blank">
+        <span itemprop="name">Aiser</span>
+      </a>
+    
+  
+  </span>
+</div>
+
+
+          <span class="flex items-center gap-2">
+  <a class="group inline-flex items-center p-2 text-sm rounded-full cursor-pointer hover:bg-primary" href="https://twitter.com/intent/tweet?text=Emacs%e7%ae%80%e5%8d%95%e5%85%a5%e9%97%a8&url=https%3a%2f%2facdcbyl.github.io%2fposts%2femacs%25E7%25AE%2580%25E5%258D%2595%25E5%2585%25A5%25E9%2597%25A8%2f" title="Share on X">
+    <ion-icon class="group-hover:text-primary-content" name="logo-x"></ion-icon>
+  </a>
+  <a class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2facdcbyl.github.io%2fposts%2femacs%25E7%25AE%2580%25E5%258D%2595%25E5%2585%25A5%25E9%2597%25A8%2f" title="Share on Facebook">
+    <ion-icon class="group-hover:text-primary-content" name="logo-facebook"></ion-icon>
+  </a>
+</span>
+
+        </div>
+      </header>
+
+      
+
+      <p>一个简单的用来入门emacs的笔记</p>
+<h1 id="前言">前言</h1>
+<p>现在人们常说的Emacs包含有多个分支，一般指的是<a href="https://www.gnu.org/software/emacs/">GNU Emacs</a>，Emacs是1975年被开发出来的，被称为<code>神的编辑器</code>。我的笔记用来记述我的学习历程，或许可以对一些想入坑的道友们有所帮助。</p>
+<h1 id="elisp">Elisp</h1>
+<p>Lisp是由约翰·麦卡锡在1958年设计出来的编程语言，它是继FORTRAN之后，仍在使用的最古老的编程语言。Lisp有着一个极为庞大的家族，一般称之为Lisp的方言。而Elisp(Emacs Lisp)因其作为Emacs的开发语言而闻名遐迩。在学习Emacs之前，需要掌握一些Elisp的基础，不是很难。</p>
+<h2 id="计算">计算</h2>
+<p>我用计算开启整个elisp的简单教学，因为它较为不同且极易被发现。现在将各种运算符（+、-、*、/ ……）通称为操作符，而将数字称为实参，对于1+1的计算我们可以使用下列的方式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>和以往我们接触的编程语言不同，lisp采用一种称为<code>前序表达式</code>的表达式，它是lisp中极为优秀的设计的最简单演示。比如我们计算1+2+3 ，在日常表示法中得采用完整的书写，而在lisp中，你只需要一个实参就能完成这个计算。甚至在lisp中你可以不添加实参，如下代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">+</span><span class="p">)</span> <span class="c1">;;这是合法的操作</span>
+</span></span></code></pre></div><p>它最终会返回0 。</p>
+<h2 id="求值">求值</h2>
+<p>Elisp是一个不那么纯粹的函数式语言，大部分操作符在lisp中都是函数。Lisp的求值需要输入它可以理解的东西，一旦它不能理解，就会报错。在Emacs中，只要遇到括号Elisp就要去执行它，你的有些配置会被当作函数执行，这时一旦Elisp理解不了配置中的东西就会报错（或者你根本就不想让表达式被执行）。为此让Elisp<code>不求值</code>就需要被使用了。在Elisp中使用<code>quote</code>操作符保证原样传递数据，如下代码所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">quote</span> <span class="p">(</span><span class="nf">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;; 它将返回原实参</span>
+</span></span><span class="line"><span class="cl"><span class="nf">&gt;</span> <span class="p">(</span><span class="nf">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>但是每次都需要再写一个quote操作符，确实有够烦人的，只需要将quote操作符换为<code>'</code>就可以了，它是quote的缩写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="o">&#39;</span><span class="p">(</span><span class="nf">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;; 仍返回原实参</span>
+</span></span><span class="line"><span class="cl"><span class="nf">&gt;</span> <span class="p">(</span><span class="nf">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><h2 id="赋值与插入">赋值与插入</h2>
+<p>赋值与插入是Elisp中极为常见的操作。最常用的赋值方式就是<code>setq</code>,经它赋值的将是全局变量，如下代码所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">aiser</span> <span class="s">&#34;hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nf">message</span> <span class="nv">aiser</span><span class="p">)</span> <span class="c1">;; 将返回hello</span>
+</span></span><span class="line"><span class="cl"><span class="nf">&gt;</span> <span class="nv">hello</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;; setq支持一次赋多个值</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">setq</span> <span class="nv">q</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">Aiser</span> <span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nv">a</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span><span class="p">))</span>
+</span></span></code></pre></div><p>可以看到，setq操作符并不会对第一个实参求值（即aiser），一旦你使用<code>(setq 'aiser &quot;hello&quot;)</code>这样的表达式，将会得到报错qaq。对于局部变量一般使用<code>let</code>和<code>let*</code></p>
+<ul>
+<li>let的赋值是同时发生的,也就是所谓的平行绑定</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">a</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nv">b</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">;; 只能在局部使用变量</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;%s %s&#34;</span> <span class="nv">a</span> <span class="nv">b</span><span class="p">))</span>
+</span></span></code></pre></div><ul>
+<li>let*的赋值是顺序绑定，后面的可以用前面的值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">let*</span> <span class="p">((</span><span class="nv">x</span> <span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="p">(</span><span class="nv">y</span> <span class="p">(</span><span class="nf">+</span> <span class="nv">x</span> <span class="mi">10</span><span class="p">)))</span>     <span class="c1">;;可以使用前面x的值</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;y = %d&#34;</span> <span class="nv">y</span><span class="p">))</span> <span class="c1">;;返回值为15</span>
+</span></span><span class="line"><span class="cl"><span class="nf">&gt;</span> <span class="mi">15</span>
+</span></span></code></pre></div><p>Elisp的插入实际上就是<code>把东西塞到光标所在的位置</code>，最常用的操作符就是<code>insert</code>，如下代码所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nf">insert</span> <span class="s">&#34;Hello, Aiser!&#34;</span><span class="p">)</span> <span class="c1">;;当你执行此代码，你的光标后面就会出现Hello, Aiser!</span>
+</span></span></code></pre></div><p>insert主要用在构建emacs的自动化脚本上，知道有这个东西就可以了。</p>
+<h2 id="定义函数">定义函数</h2>
+<p>Elisp定义函数使用defun宏，它极为简单且高效，基本使用见如下代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">say-hello</span> <span class="p">()</span> <span class="c1">;;没有参数</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;just say hello&#34;</span> <span class="c1">;;你可以输入一些函数文档，它们可以在help mode中被检索</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Hello, Aiser!&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;;调用函数也特别简单，只需要用括号包裹，elisp将执行它</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">say-hello</span><span class="p">)</span>
+</span></span></code></pre></div><p>假设我们想要携带参数</p>
+<ul>
+<li>对于普通参数的函数的使用：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">add-two</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">+</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;; 要使用这个函数需要提供参数</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-two</span> <span class="mi">3</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">&gt;</span> <span class="mi">4</span>
+</span></span></code></pre></div><ul>
+<li>对于可选参数的函数的使用:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">greet</span> <span class="p">(</span><span class="nv">name</span> <span class="kp">&amp;optional</span> <span class="nv">greeting</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;%s, %s!&#34;</span> <span class="p">(</span><span class="nb">or</span> <span class="nv">greeting</span> <span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="nv">name</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;;这个函数中的greeting参数就是可选参数，可以选择提供greeting参数，也可不提供</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">greet</span> <span class="s">&#34;Aiser&#34;</span> <span class="s">&#34;Goodday&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">greet</span> <span class="s">&#34;Aiser&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li>defun还提供了interactive以让用户在minibuffer输入参数:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-greet-user</span> <span class="p">(</span><span class="nv">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nb">interactive</span> <span class="s">&#34;sWhats your name: &#34;</span><span class="p">)</span>      <span class="c1">;; s代表string，限制用户的输入</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Hello，%s！Welcome Emacs！&#34;</span> <span class="nv">name</span><span class="p">))</span>
+</span></span></code></pre></div><h2 id="执行">执行</h2>
+<p><code>progn</code>是Elisp中最基础、最常用的顺序执行特殊形式，它把把多个表达式按顺序执行一遍，最后返回最后一个表达式的值。如果里面什么都没有将会返回nil。progn极为常见，下面列举一部分：</p>
+<ol>
+<li>在条件语句中执行多条代码</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">if</span> <span class="p">(</span><span class="nf">&gt;</span> <span class="nv">x</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nb">progn</span>                  <span class="c1">;;如果不使用progn，这里只能写一条表达式</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;x bigger！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nb">setq</span> <span class="nv">x</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="nv">beep</span><span class="p">))</span> <span class="c1">;;beep是让Emacs响铃</span>
+</span></span><span class="line"><span class="cl">  <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;x ok&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><ol start="2">
+<li>将多个表达式变成一个整体传输</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;emacs-startup-hook</span> <span class="c1">;;一个常用钩子，在Emacs启动后触发，add-hook用于注册钩子</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span> <span class="c1">;;匿名函数,这里不需要名字，没必要用defun</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">progn</span>
+</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Emacs have started&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="nv">toggle-frame-maximized</span><span class="p">)</span> <span class="c1">;;最大化Emacs窗口</span>
+</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="nv">switch-to-buffer</span> <span class="s">&#34;*scratch*&#34;</span><span class="p">))))</span><span class="c1">;;切换到scrath buffer</span>
+</span></span></code></pre></div><ol start="3">
+<li>被隐含的progon</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-elisp" data-lang="elisp"><span class="line"><span class="cl"><span class="c1">;;lambda体隐含progon是极为常见的用法，同样是上面的代码，可以直接省略progon</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;emacs-startup-hook</span>
+</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="nb">lambda</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">message</span> <span class="s">&#34;Emacs have started&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nv">toggle-frame-maximized</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nv">switch-to-buffer</span> <span class="s">&#34;*scratch*&#34;</span><span class="p">)))</span>
+</span></span></code></pre></div>
+
+      
+    </article>
+  </div>
+
+  
+  <div class="divider max-w-[65ch] mx-auto"></div>
+
+  <section class="max-w-[65ch] mx-auto space-y-4">
+    
+
+
+
+
+
+
+<article>
+
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    init({
+      el: '#waline',
+      dark: 'html.dark',
+      serverURL: "https://hugo-comment-five.vercel.app/",
+    });
+  </script>
+
+</article>
+
+
+  </section>
+  
+</div>
+
+
+            
+            <footer class="flex justify-between items-center gap-2 px-4 py-12">
+            
+              <div>
+  
+  <p>
+    © 2024 - 2026 Aiser&#39;s Blog
+  </p>
+  
+
+  
+  <p>欢迎来到我的博客！</p>
+  
+</div>
+
+              <div
+  x-data="{ icons: [
+    { name: 'moon', status: 'y' },
+    { name: 'sunny', status: 'n' },
+    { name: 'desktop', status: 'auto' }
+  ] }"
+  class="flex items-center h-[32px] px-2 gap-2 border border-base-content/30 rounded-full"
+>
+  <template x-for="icon in icons">
+    <div
+      role="button"
+      tabindex="0"
+      :aria-label="'Select ' + icon.name + ' mode'"
+      class="group inline-flex justify-center items-center p-1 rounded-full cursor-pointer hover:bg-primary"
+      :class="$store.darkMode.icon() === icon.name && 'bg-primary'"
+      @click="$store.darkMode.toggle(icon.status)"
+    >
+      <ion-icon
+        :name="`${icon.name}-outline`"
+        class="group-hover:text-primary-content"
+        :class="$store.darkMode.icon() === icon.name && 'text-primary-content'"
+      >
+      </ion-icon>
+    </div>
+  </template>
+</div>
+
+            </footer>
+          </div>
+        </div>
+        <div class="back">
+          <div class="container">
+            
+            <div class="dream-grid">
+  
+  
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">Me</div>
+
+        <div class="prose dark:prose-invert">
+          <p>我的名字是Aiser,这是我的博客</p>
+        </div>
+      </div>
+    </article>
+  </div>
+  
+  
+
+  
+  <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 dream-column">
+    <article
+      class="card card-compact bg-base-100 hover:bg-base-content/10 shadow-xl dark:border dark:border-base-content/30"
+    >
+      <div class="card-body">
+        <div class="card-title">社交链接</div>
+
+        <ul class="menu menu-horizontal flex-wrap w-full px-0 [&_ion-icon]:text-lg">
+  
+  <li>
+    <a href="mailto:wtchel088@gmail.com" title="Email">
+      <ion-icon name="mail"></ion-icon>
+    </a>
+  </li>
+  
+
+  
+  <li>
+    <a href="https://github.com/acdcbyl" target="_blank" title="GitHub">
+      <ion-icon name="logo-github"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://x.com/Aiser520" target="_blank" title="X">
+      <ion-icon name="logo-x"></ion-icon>
+    </a>
+  </li>
+  
+  <li>
+    <a href="https://stackoverflow.com/users/22583303/aiser" target="_blank" title="stack overflow">
+      <ion-icon name="logo-stackoverflow"></ion-icon>
+    </a>
+  </li>
+  
+</ul>
+
+      </div>
+    </article>
+  </div>
+  
+
+  
+</div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  window.lightTheme = "emerald"
+  window.darkTheme = "forest"
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+
+  
+  
+    
+  
+  <script src="/js/grid.min.js"></script>
+
+
+
+
+  
+
+<script src="/js/main.min.js"></script>
+
+    
+
+
+
+<script>
+  window.customSyntaxHighlighting = {
+    light: "/css/syntax-light.min.css",
+    dark: "/css/syntax-dark.min.css"
+  }
+
+  document.addEventListener('alpine:initialized', () => {
+    var isDark = Alpine.store('darkMode').isDark()
+    var customSyntaxHighlightingUrl = isDark ? window.customSyntaxHighlighting.dark : window.customSyntaxHighlighting.light
+
+    document
+      .querySelector('link[data-custom-syntax-highlighting]')
+      .setAttribute('href', customSyntaxHighlightingUrl)
+  })
+</script>
+
+
+
+
+    
+
+    
+
+    
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-069VH5YHSE"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-069VH5YHSE');
+        }
+      </script>
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
+  </body>
+</html>
